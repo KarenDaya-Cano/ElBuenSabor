@@ -9,8 +9,9 @@
     </div>
 </nav><br>
 <div class="alert" role="alert">
-    <form action="/submit_form.php" method="post">
-        <br><h2>Formulario de contacto</h2><br>
+    <form class="menu-form" method="post" action="{% url 'procesar_pedidos' %}">
+        {% csrf_token %}
+        <h2>Formulario de contacto</h2>
         <label for="nombre">Nombre:</label><br>
         <input type="text" id="nombre" name="nombre"><br><br>
 
@@ -20,11 +21,8 @@
         <label for="telefono">Teléfono:</label><br>
         <input type="tel" id="telefono" name="telefono"><br><br>
 
-    </form><br><br>
+        <input type="hidden" name="user_id" value="{{ request.user.id }}">
 
-
-    <form class="menu-form" method="post" action="{% url 'procesar_pedidos' %}">
-        {% csrf_token %}
         <h1>Carrito</h1>
         <table>
             <thead>
@@ -40,13 +38,13 @@
                 {% if request.session.carrito %}
                     {% for key, value in request.session.carrito.items %}
                     <tr>
-                        <td  style="font-size: x-large; text-align: center;">{{ value.producto }}</td>
-                        <td  style="font-size: x-large; text-align: center;">{{ value.precio }}</td>
-                        <td  style="font-size: x-large; text-align: center;">
+                        <td style="font-size: x-large; text-align: center;">{{ value.producto }}</td>
+                        <td style="font-size: x-large; text-align: center;">{{ value.precio }}</td>
+                        <td style="font-size: x-large; text-align: center;">
                             <a href="{% url 'sub' value.producto_id %}" style="text-decoration: none; color: #FF0000;"> - </a> {{ value.cantidad }} <a href="{% url 'add' value.producto_id %}" class="agregar-producto"  style="text-decoration: none; color: #19c44c;"> + </a>
                         </td>
-                        <td  style="font-size: x-large; text-align: center;"><img style="max-width: 100px;" src="{{ value.imagen }}"></td>
-                        <td  style="font-size: x-large; text-align: center;">
+                        <td style="font-size: x-large; text-align: center;"><img style="max-width: 100px;" src="{{ value.imagen }}"></td>
+                        <td style="font-size: x-large; text-align: center;">
                             <div>
                                 {% for adicion in adiciones %}
                                     <input type="checkbox" name="adiciones_{{ key }}" value="{{ adicion.id }}">{{ adicion.adicion }}<br>
@@ -67,9 +65,8 @@
                     <td colspan="4">$ {{ total_carrito }}</td>
                 </tr>
             </tbody>
-        </table><br><br>
-      
-
+        </table>
+        <br>
         <button type="submit" class="agg">Comprar</button>
         <br><a class="agg" href="{% url 'cls' %}">Limpiar</a>
     </form>

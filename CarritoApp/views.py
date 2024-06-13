@@ -42,27 +42,26 @@ def limpiar_carrito(request):
     carrito.limpiar()
     return redirect('menu')
 
+
 def procesar_pedido(request):
     if request.method == 'POST':
         pedido = Pedido.objects.create(user=request.user)
         carrito = Carrito(request)
-        lineas_pedidos = list()
-        
+        lineas_pedidos = []
+
         for key, value in carrito.carrito.items():
             producto_id = key
             cantidad = value["cantidad"]
             producto = Producto.objects.get(id=producto_id)
             
-            # Crear y guardar LineaPedido antes de agregar adiciones
             linea_pedido = LineaPedido(
                 producto=producto,
                 cantidad=cantidad,
                 user=request.user,
                 pedido=pedido,
             )
-            linea_pedido.save()  # Guardar para que obtenga un ID
+            linea_pedido.save()
 
-            # Agregar adiciones seleccionadas para este producto
             adicion_ids = request.POST.getlist(f'adiciones_{key}')
             for adicion_id in adicion_ids:
                 adicion = Adicion.objects.get(id=adicion_id)
@@ -70,33 +69,40 @@ def procesar_pedido(request):
             
             lineas_pedidos.append(linea_pedido)
 
-        # No usar bulk_create porque ya guardamos individualmente
-        total_pedido = pedido.total  # Aquí se agrega el total al contexto
-        
-        enviar_email(
-            pedido=pedido,
-            lineas_pedidos=lineas_pedidos,
-            nombre_usuario=request.user.username,
-            email_usuario=request.user.email,
-            total=total_pedido  # se agrega el total al enviar
-        )
+        total_pedido = pedido.total
 
-        return redirect("menu")
+        # Obtener datos del formulario de contacto
+        nombre = request.POST.get('nombre')
+        direccion = request.POST.get('direccion')
+        telefono = request.POST.get('telefono')
 
-    return redirect("pedidoo")
+        # Enviar correo electrónico con los detalles del pedido y del usuario
+    def enviar_email(pedido, lineas_pedidos, nombre_usuario, email_usuario, total, nombre, direccion, telefono):
+        # Construir el mensaje en formato HTML
+        mensaje_html = f"""
+        <p>Hola {nombre_usuario},</p>
+        <p>Gracias por tu pedido. Aquí está el resumen:</p>
+        <p>Nombre: {nombre}</p>
+        <p>Dirección: {direccion}</p>
+        <p>Teléfono: {telefono}</p>
+        <p>Productos:</p>
+        <ul>
+        """
+        for linea_pedido in lineas_pedidos:
+            mensaje_html += f"<li>{linea_pedido.producto.nombre} - Cantidad: {linea_pedido.cantidad}</li>"
 
-def enviar_email(**kwargs):
-    asunto = "Muchas gracias por el pedido"
-    mensaje = render_to_string("pedido.html", {
-        "pedido":kwargs.get("pedido"),
-        "lineas_pedidos": kwargs.get("lineas_pedidos"),
-        "nombre_usuario":kwargs.get("nombre_usuario"),
-        "total":kwargs.get("total") # Se obtiene el total
-    })
+        mensaje_html += f"""
+        </ul>
+        <p>Total del pedido: {total}</p>
+        """
 
-    mensaje_texto = strip_tags (mensaje)
-    from_email = "web.kmx3@gmail.com"   
-    to = kwargs.get("email_usuario")
-    #to = "karencano1123@gmail.com"
+        # Convertir el mensaje HTML a texto plano
+        mensaje_texto = strip_tags(mensaje_html)
 
-    send_mail(asunto, mensaje_texto, from_email, [to], html_message = mensaje)
+        # Configurar el correo electrónico
+        asunto = "Confirmación de pedido"
+        from_email = "web.kmx3@gmail.com"
+        to = email_usuario
+
+        # Enviar el correo electrónico
+        send_mail(asunto, mensaje_texto, from_email, [to], html_message=mensaje_html)
