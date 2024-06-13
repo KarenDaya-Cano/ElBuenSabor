@@ -95,6 +95,54 @@ nav ul li a:hover{background: linear-gradient(rgb(255, 51, 51),rgb(253, 186, 61)
     background-color: orange; /* Color de fondo del encabezado */
     color: white; /* Color del texto del encabezado */
 }
+.menu-form {
+    width: 60%;
+    margin: auto;
+    border-collapse: collapse;
+    background-color: #fff; /* Nuevo estilo para el fondo */
+    padding: 20px; /* Nuevo estilo para el relleno */
+    border-radius: 10px; /* Nuevo estilo para los bordes redondeados */
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+.menu-form td, .menu-form th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.menu-form th {
+    background-color: orange;
+    color: white;
+}
+
+.menu-form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.menu-form input[type="text"],
+.menu-form input[type="tel"] {
+    width: calc(100% - 20px); /* Ajustar ancho al 100% del contenedor, restando el espacio para el borde y el padding */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.menu-form button[type="submit"] {
+    background-color: #ff4500;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.menu-form button[type="submit"]:hover {
+    background-color: #ff6347;
+}
 
 /* Alerta de carrito sin productos */
 /* Carrito HtML */
