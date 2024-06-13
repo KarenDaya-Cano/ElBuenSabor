@@ -17,10 +17,7 @@ def pedido(request):
     adicion=Adicion.objects.all()
     return render(request, 'carrito.html', {'productos': productos,'adiciones':adicion})
 
-def comprar(request):
-    productos = Producto.objects.all()
-    adicion=Adicion.objects.all()
-    return render(request, 'info.html', {'productos': productos,'adiciones':adicion})
+
 
 def agregar_producto(request, producto_id):
     carrito = Carrito(request)
