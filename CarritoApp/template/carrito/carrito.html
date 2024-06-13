@@ -8,7 +8,6 @@
         <a class="buscador-carrito" href="#">ESTE ES TU PEDIDO</a>
     </div>
 </nav><br>
-<h1>hola</h1>
 <div class="alert" role="alert">
     <form class="menu-form" method="post" action="{% url 'procesar_pedidos' %}">
         {% csrf_token %}
@@ -54,19 +53,14 @@
                 </tr>
             </tbody>
         </table>
-        <form action="/submit_form.php" method="post">
             <label for="nombre">Nombre:</label><br>
             <input type="text" id="nombre" name="nombre"><br><br>
         
             <label for="direccion">Dirección:</label><br>
-            <input type="text" id="direccion" name="direccion"><br><br>
+            <input class="td" type="text" id="direccion" name="direccion"><br><br>
         
             <label for="telefono">Teléfono:</label><br>
             <input type="tel" id="telefono" name="telefono"><br><br>
-        
-            <input type="submit" value="Enviar">
-        </form>
-
         <button type="submit" class="agg">Comprar</button>
         <br><a class="agg" href="{% url 'cls' %}">Limpiar</a>
     </form>
