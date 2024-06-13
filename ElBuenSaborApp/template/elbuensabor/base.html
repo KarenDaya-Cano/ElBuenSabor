@@ -1,0 +1,231 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">    
+</head>
+<style>
+/* Estilo general de todos los HTML */
+    *{padding: 0; margin: 0;}
+    html{background: linear-gradient(red, orange);
+        padding: 20px;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;}
+    body{padding: 0; 
+        background: #fff; 
+        margin: 0; 
+        min-height: 100vh; 
+        border-radius: 10px;} 
+/* Otros    */
+    a{text-decoration: none;color: aliceblue;}
+    i{font-size: 2rem;}
+    h1{font-size: 40px;
+        background: linear-gradient(25deg, rgb(255, 0, 0), rgb(255, 136, 0));
+        background-clip: text;
+        -webkit-text-fill-color: transparent;}
+    h2{background: linear-gradient(25deg, rgb(255, 0, 0), rgb(255, 136, 0));
+        background-clip: text;
+        -webkit-text-fill-color: transparent;}
+/* NAV general */
+    nav {background:white;border-radius: 20px;}     
+    nav ul{list-style-type: none;
+        margin: 0;
+        padding: 0;}     
+    nav ul li{display: inline;}      
+    nav ul li a{display: block;
+        color: rgb(16, 16, 16); 
+        padding: 14px 20px; 
+        text-decoration: none; 
+        font-size:25px;}    
+nav ul li a:hover{background: linear-gradient(rgb(255, 51, 51),rgb(253, 186, 61));}
+/*HTML de menu */
+    .buscador {background-color: red;
+        padding: 10px;
+        border-radius: 0%;}   
+    .buscador .container {display: flex;
+        align-items: center;
+        justify-content: space-between;}   
+    .buscador-carrito {color: white;font-size: 40px;}
+    .container{max-width: 960px;
+        width: 90%;
+        padding: 0 10px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;} 
+    .card{background: rgb(238, 237, 237);
+        border-radius: 10%;
+        border: 1px solid beige;
+        text-align: center;
+        padding: 20px;
+        border: 1px solid rgb(180, 178, 178);}
+    .carousel {display: grid; 
+        grid-auto-flow: column;
+        scroll-behavior: auto;
+        gap: 1.2rem;
+        overflow-y: auto;
+        overscroll-behavior-x: contain;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;}
+    h1 {text-align: center;color: red;}
+/* Tablas de todos los HTML */
+    table {border-collapse: collapse;
+        width: 60%;
+        margin: auto;}
+    td, th {border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;}
+    th {background-color: orange;color: white;}
+    /* tabla carrito */
+    /* Estilos para el formulario del menú */
+.menu-form {
+    width: 60%; /* Ancho de la tabla */
+    margin: auto; /* Centrar la tabla */
+    border-collapse: collapse; /* Colapso de bordes */
+}
+
+.menu-form td, .menu-form th {
+    border: 1px solid #ddd; /* Estilo del borde */
+    padding: 8px; /* Espaciado interno */
+    text-align: left; /* Alineación del texto */
+}
+
+.menu-form th {
+    background-color: orange; /* Color de fondo del encabezado */
+    color: white; /* Color del texto del encabezado */
+}
+
+/* Alerta de carrito sin productos */
+/* Carrito HtML */
+    .alert-danger {background-color: red;
+        color: white;
+        text-align: center;
+        padding: 10px;}
+    .adicionMenu {display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;}
+    .adicionMenu button {background-color: inherit;
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        border: none;
+        width: 100%;
+        text-align: left;}
+    .adicionMenu button:hover {background-color: #ddd;}
+    .adicionSeleccionadas {margin-top: 10px;}
+    .agg{border:1px solid black; 
+        margin: auto; display: flex; 
+        width:20%; padding:5px; 
+        color: black; 
+        justify-content: center;}
+    .agg:hover {background:  orange; }
+    .agg:active { background:red; }
+/* Formulario para inicio de sesion y para agregar producto HTML */
+    form{background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1); /* Sombra */
+        width: 300px;
+        font-size: 20px;
+        margin: auto;}
+    label {display: block;
+        margin-bottom: 5px;
+        color: #333;}
+    input[type="text"],input[type="password"] {width: 80%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;}
+    button[type="submit"] {background-color: #ff4500;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;}
+    button[type="submit"]:hover {background-color: #ff6347;}
+/* Inicio HTML */
+    .boton_menu{background: linear-gradient(rgb(255, 51, 51),rgb(253, 186, 61));
+        color: rgb(89, 89, 89); 
+        padding: 20px; font-size: 20px; 
+        font-weight: bold; 
+        text-transform: uppercase;} 
+    .inicio{text-align: center;
+        max-width: 50%;
+        margin:  auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 30px;
+        padding-bottom: 30px;} 
+    .navicon {padding: 23px 20px;
+        cursor: pointer;
+        -webkit-transform-origin: 32px 24px;
+        -ms-transform-origin: 32px 24px;
+        transform-origin: 32px 24px;}  
+    .navicon div {position: relative;
+        width: 20px;
+        height: 2px;
+        background: rgba(0, 0, 0, 0.87);} 
+    .navicon div:before,.navicon div:after {display: block;
+        content: "";
+        width: 20px;
+        height: 2px;
+        background: rgba(0, 0, 0, 0.87);
+        position: absolute;}
+    .navicon div:before { top: -7px; }
+    .navicon div:after { top: 7px; }
+    .a_menu {display: block;
+        padding: 0 20px;
+        color: inherit;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;} 
+    .a_menu:active { background: #ffca28; }
+    .nav_admin {width: 300px;
+        background: white;
+        color: rgba(0, 0, 0, 0.87);
+        -webkit-clip-path: circle(24px at 30px 24px);
+        clip-path: circle(24px at 32px 24px);
+        -webkit-transition: -webkit-clip-path 0.5625s, clip-path 0.375s;
+        transition: -webkit-clip-path 0.5625s, clip-path 0.375s;} 
+    .nav_admin:hover {-webkit-transition-timing-function: ease-out;
+        transition-timing-function: ease-out;
+        -webkit-transition-duration: 0.75s;
+        transition-duration: 0.75s;
+        -webkit-clip-path: circle(390px at 225px 24px);
+        clip-path: circle(390px at 150px 24px);} 
+/* Footer */
+    footer {text-align: center;
+        background:orange;
+        color: #fff;
+        padding: 10px;
+        position:fixed;
+        bottom: 0; 
+        width: 100%; }
+/* Boton general */
+    .Adiciones{padding: 5px;
+        background: linear-gradient(rgb(255, 51, 51),rgb(253, 186, 61));
+        border: none;
+        border-radius: 5px;
+        font-weight: 500;
+        cursor:cell;}
+</style>
+<body>
+    <!-- Bloque para el contenido dinámico, que será reemplazado por las plantillas hijas -->
+    {% block content %}
+    <!-- Este bloque se llenará con el contenido de las plantillas hijas -->
+    {% endblock %}
+</body>
+<footer>
+    <a href="#" style="padding-left: 15px;">Comidas Rapidas</a>
+    <a href="#" style="padding-left: 15px;">Contactos</a>
+    <a href="#" style="padding-left: 15px;">Parque De Santa Barbara</a>
+</footer>
+</html>

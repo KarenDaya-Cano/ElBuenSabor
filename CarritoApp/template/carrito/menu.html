@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static%}
+{% block content %}
+<title>Menu</title>
+<nav class="buscador">  
+    <div class="container">
+        <a href="{% url 'inicio' %}"><i style="font-size: 2rem;" class="bi bi-arrow-left-circle"></i></a>
+        <a class="buscador-carrito" href="#">MENU</a>
+        <a href="{% url 'pedido' %}"><i style="font-size: 2rem;" class="bi bi-cart4"></i></a>
+    </div>
+</nav>
+<main>
+    <br><h1 style="text-align: center; font-size: 30px;">EL BUEN SABOR</h1>
+    <br><h2 style="padding-left: 50px;">Productos</h2>
+    <h4 style="padding-left: 50px;">Seleccione el producto que desea comprar y agregelo al carrito de compras</h4>
+    <br>
+    <div style="margin-left: 40px; margin-right: 40px;" class="carousel">
+        <div class="carousel">
+            {% for producto in productos %}
+                <article class="card">
+                    <img style="border: none;" id="imagen" src="{{ producto.imagen.url }}" height="250" width="250"><br>
+                    <br><h3 style="text-transform: uppercase;">{{ producto.producto}}</h3>
+                    <br><h5>{{ producto.precio}}</h5><br>
+                    <a class="Adiciones" href="{% url 'add' producto.id %}"><i class="bi bi-plus-circle-fill"></i>Agregar al carrito</a>
+                </article>
+                
+            {% endfor %}
+        </div>
+    </div>
+</main><br><br>    
+{% endblock %}

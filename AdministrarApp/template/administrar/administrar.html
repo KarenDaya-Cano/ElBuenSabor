@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<title>Administrar Productos</title>
+<style>
+    a{color: black; text-decoration: underline; justify-content: center;}
+    h1{text-align: center;}
+</style>
+<body>
+    <br><h1>Administrar Productos</h1><br>
+    <a class="agg" href="{% url 'agregar_producto' %}">Agregar Producto</a>
+    <br><br><table>
+        <tr>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>descripcion</th>
+            <th>Imagen</th>
+            <th>Opción</th>
+        </tr>
+         {% for producto in productos %}
+        <tr>
+            <td>{{ producto.producto }}</td>
+            <td>{{ producto.precio }}</td>
+            <td>{{ producto.descripcion }}</td>
+            <td><img style="width: 30%; border: none;color: black;" src="{{ producto.imagen.url }}"></td>
+            <td><a href="{% url 'editar_producto' producto.pk %}">Editar</a>
+                <a href="{% url 'eliminar_producto' producto.pk %}">Eliminar</a></td>
+        </tr>
+        {% endfor %}
+    </table><br><br>
+</body>
+{% endblock %}

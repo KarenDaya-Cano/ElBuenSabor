@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura de Pedido</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>Factura de Pedido</h2>
+    <p>Hola, {{ nombre_usuario }}</p>
+    <p>Número de Pedido: {{ pedido.id }}</p>
+    <p>Email Usuario: {{ email_usuario }}</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Adiciones</th>
+                <th>Precio Unitario</th>
+                <th>Sub Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for linea_pedido in lineas_pedidos %}
+            <tr>
+                <td>{{ linea_pedido.producto.producto }}</td>
+                <td>{{ linea_pedido.cantidad }}</td>
+                <td>
+                    {% if linea_pedido.adiciones.all %}
+                        {% for adicion in linea_pedido.adiciones.all %}
+                            {{ adicion.adicion }}<p>Precio: {{ adicion.precio }}</p></li>
+                        {% endfor %}
+                    {% else %}
+                        No hay adiciones
+                    {% endif %}
+                </td>
+                <td>{{ linea_pedido.precio_unitario }}</td>
+                <td>{{ linea_pedido.sub_total }}</td> 
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p>Total: {{ total }}</p>
+    {% if request.session.carrito.items %}
+    <a class="agg" href="{% url 'procesar_pedido' %}"><i class="bi bi-cart-plus"></i> Comprar</a>
+    {% endif %}
+</body>
+</html>

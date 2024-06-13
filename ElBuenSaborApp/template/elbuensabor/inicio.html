@@ -1,0 +1,16 @@
+{%  extends 'base.html' %}
+{% load static %}
+{% block content %}
+<nav class="nav_admin">
+  <div class="navicon">
+    <div></div>
+    </div>      
+  <a class="a_menu" href="{% url 'login' %}"><i class="bi bi-person-fill-gear"></i> Administrar</a>
+</nav>
+<div class="inicio">
+    <h1>¿QUE SE TE ANTOJA HOY?</h1>
+    <button class="boton_menu"><a href="{% url 'menu' %}">Menu</a></button>
+</div>
+<img style="margin: auto;display: flex; border: none;" src="{% static 'C:\ElBuenSabor\ElBuenSabor\static\elbuensaborapp\imagen\image.png' %}">
+<br><br>
+{% endblock %}

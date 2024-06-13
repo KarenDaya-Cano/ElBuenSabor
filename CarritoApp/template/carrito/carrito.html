@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<title>Carrito</title>
+<nav class="buscador">  
+    <div class="container">
+        <a href="{% url 'menu' %}"><i style="font-size: 2rem;" class="bi bi-arrow-left-circle"></i></a>
+        <a class="buscador-carrito" href="#">ESTE ES TU PEDIDO</a>
+    </div>
+</nav><br>
+<div class="alert" role="alert">
+    <form class="menu-form" method="post" action="{% url 'procesar_pedidos' %}">
+        {% csrf_token %}
+        <table>
+            <thead>
+                <tr style="text-transform: uppercase;">
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Imagen</th>
+                    <th>Adiciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if request.session.carrito %}
+                    {% for key, value in request.session.carrito.items %}
+                    <tr>
+                        <td>{{ value.producto }}</td>
+                        <td>{{ value.precio }}</td>
+                        <td>
+                            <a href="{% url 'sub' value.producto_id %}">-</a>{{ value.cantidad }}<a href="{% url 'add' value.producto_id %}">+</a>
+                        </td>
+                        <td><img style="max-width: 100px;" src="{{ value.imagen }}"></td>
+                        <td>
+                            <div>
+                                {% for adicion in adiciones %}
+                                    <input type="checkbox" name="adiciones_{{ key }}" value="{{ adicion.id }}">{{ adicion.adicion }}<br>
+                                {% endfor %}
+                            </div>
+                        </td>                     
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="5">
+                        <div class="alert alert-danger text-center">Sin Productos</div>
+                    </td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <th scope="row">Total:</th>
+                    <td colspan="4">$ {{ total_carrito }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="submit" class="agg">Comprar</button>
+        <br><a class="agg" href="{% url 'cls' %}">Limpiar</a>
+    </form>
+</div>
+{% endblock %}
