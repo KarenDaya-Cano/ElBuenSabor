@@ -1,14 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<title>Carrito</title>
+<title>yo</title>
 <nav class="buscador">  
     <div class="container">
         <a href="{% url 'menu' %}"><i style="font-size: 2rem;" class="bi bi-arrow-left-circle"></i></a>
         <a class="buscador-carrito" href="#">ESTE ES TU PEDIDO</a>
     </div>
 </nav><br>
-<h1>hola</h1>
 <div class="alert" role="alert">
     <form class="menu-form" method="post" action="{% url 'comprar' %}">
         {% csrf_token %}
