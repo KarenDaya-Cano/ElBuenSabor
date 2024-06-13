@@ -52,7 +52,19 @@
                     <td colspan="4">$ {{ total_carrito }}</td>
                 </tr>
             </tbody>
-        </table>
+        </table><br>
+        <div class="menu-form">
+            <label for="nombre">Nombre:</label><br>
+            <input type="text" id="nombre" name="nombre"><br><br>
+        
+            <label for="direccion">Dirección:</label><br>
+            <input type="text" id="direccion" name="direccion"><br><br>
+        
+            <label for="telefono">Teléfono:</label><br>
+            <input type="tel" id="telefono" name="telefono"><br><br>
+        
+            <input type="submit" value="Enviar">
+        </div>
         <button type="submit" class="agg">Comprar</button>
         <br><a class="agg" href="{% url 'cls' %}">Limpiar</a>
     </form>
