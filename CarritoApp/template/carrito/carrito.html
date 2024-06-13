@@ -9,7 +9,7 @@
     </div>
 </nav><br>
 <div class="alert" role="alert">
-    <form class="menu-form" method="post" action="{% url 'comprar' %}">
+    <form class="menu-form" method="post" action="{% url 'procesar_pedidos' %}">
         {% csrf_token %}
         <table>
             <thead>
@@ -53,7 +53,6 @@
                 </tr>
             </tbody>
         </table>
-        <form action="/submit_form.php" method="post">
             <label for="nombre">Nombre:</label><br>
             <input type="text" id="nombre" name="nombre"><br><br>
         
@@ -62,9 +61,6 @@
         
             <label for="telefono">Teléfono:</label><br>
             <input type="tel" id="telefono" name="telefono"><br><br>
-        
-        </form>
-
         <button type="submit" class="agg">Comprar</button>
         <br><a class="agg" href="{% url 'cls' %}">Limpiar</a>
     </form>
