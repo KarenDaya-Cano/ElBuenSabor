@@ -9,29 +9,44 @@
     </div>
 </nav><br>
 <div class="alert" role="alert">
-    <form class="menu-form" method="post" action="{% url 'comprar' %}">
+    <h2>Formulario de contacto</h2>
+
+    <form action="/submit_form.php" method="post">
+        <label for="nombre">Nombre:</label><br>
+        <input type="text" id="nombre" name="nombre"><br><br>
+
+        <label for="direccion">Dirección:</label><br>
+        <input type="text" id="direccion" name="direccion"><br><br>
+
+        <label for="telefono">Teléfono:</label><br>
+        <input type="tel" id="telefono" name="telefono"><br><br>
+
+    </form><br><br>
+
+    <form class="menu-form" method="post" action="{% url 'procesar_pedidos' %}">
         {% csrf_token %}
+        <h1>Carrito</h1>
         <table>
             <thead>
                 <tr style="text-transform: uppercase;">
-                    <th>Producto</th>
-                    <th>Precio</th>
-                    <th>Cantidad</th>
-                    <th>Imagen</th>
-                    <th>Adiciones</th>
+                    <th style="font-size: x-large; text-align: center;">Producto</th>
+                    <th style="font-size: x-large; text-align: center;">Precio</th>
+                    <th style="font-size: x-large; text-align: center;">Cantidad</th>
+                    <th style="font-size: x-large; text-align: center;">Imagen</th>
+                    <th style="font-size: x-large; text-align: center;">Adiciones</th>
                 </tr>
             </thead>
             <tbody>
                 {% if request.session.carrito %}
                     {% for key, value in request.session.carrito.items %}
                     <tr>
-                        <td>{{ value.producto }}</td>
-                        <td>{{ value.precio }}</td>
-                        <td>
-                            <a href="{% url 'sub' value.producto_id %}">-</a>{{ value.cantidad }}<a href="{% url 'add' value.producto_id %}">+</a>
+                        <td  style="font-size: x-large; text-align: center;">{{ value.producto }}</td>
+                        <td  style="font-size: x-large; text-align: center;">{{ value.precio }}</td>
+                        <td  style="font-size: x-large; text-align: center;">
+                            <a href="{% url 'sub' value.producto_id %}" style="text-decoration: none; color: #FF0000;"> - </a> {{ value.cantidad }} <a href="{% url 'add' value.producto_id %}" class="agregar-producto"  style="text-decoration: none; color: #19c44c;"> + </a>
                         </td>
-                        <td><img style="max-width: 100px;" src="{{ value.imagen }}"></td>
-                        <td>
+                        <td  style="font-size: x-large; text-align: center;"><img style="max-width: 100px;" src="{{ value.imagen }}"></td>
+                        <td  style="font-size: x-large; text-align: center;">
                             <div>
                                 {% for adicion in adiciones %}
                                     <input type="checkbox" name="adiciones_{{ key }}" value="{{ adicion.id }}">{{ adicion.adicion }}<br>
@@ -48,26 +63,15 @@
                 </tr>
                 {% endif %}
                 <tr>
-                    <th scope="row">Total:</th>
+                    <th scope="row" style="font-size: x-large; text-align: center;">Total:</th>
                     <td colspan="4">$ {{ total_carrito }}</td>
                 </tr>
             </tbody>
-        </table>
-        <form action="/submit_form.php" method="post">
-            <label for="nombre">Nombre:</label><br>
-            <input type="text" id="nombre" name="nombre"><br><br>
-        
-            <label for="direccion">Dirección:</label><br>
-            <input type="text" id="direccion" name="direccion"><br><br>
-        
-            <label for="telefono">Teléfono:</label><br>
-            <input type="tel" id="telefono" name="telefono"><br><br>
-        
-            <input type="submit" value="Enviar">
-        </form>
+        </table><br><br>
+      
 
         <button type="submit" class="agg">Comprar</button>
         <br><a class="agg" href="{% url 'cls' %}">Limpiar</a>
     </form>
-</div>
+</div><br><br>
 {% endblock %}
