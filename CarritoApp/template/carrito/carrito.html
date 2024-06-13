@@ -52,8 +52,8 @@
                     <td colspan="4">$ {{ total_carrito }}</td>
                 </tr>
             </tbody>
-        </table><br>
-        <div class="menu-form">
+        </table>
+        <form action="/submit_form.php" method="post">
             <label for="nombre">Nombre:</label><br>
             <input type="text" id="nombre" name="nombre"><br><br>
         
@@ -64,7 +64,8 @@
             <input type="tel" id="telefono" name="telefono"><br><br>
         
             <input type="submit" value="Enviar">
-        </div>
+        </form>
+
         <button type="submit" class="agg">Comprar</button>
         <br><a class="agg" href="{% url 'cls' %}">Limpiar</a>
     </form>
