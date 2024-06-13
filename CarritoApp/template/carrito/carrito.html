@@ -9,9 +9,8 @@
     </div>
 </nav><br>
 <div class="alert" role="alert">
-    <h2>Formulario de contacto</h2>
-
     <form action="/submit_form.php" method="post">
+        <br><h2>Formulario de contacto</h2><br>
         <label for="nombre">Nombre:</label><br>
         <input type="text" id="nombre" name="nombre"><br><br>
 
@@ -22,6 +21,7 @@
         <input type="tel" id="telefono" name="telefono"><br><br>
 
     </form><br><br>
+
 
     <form class="menu-form" method="post" action="{% url 'procesar_pedidos' %}">
         {% csrf_token %}
