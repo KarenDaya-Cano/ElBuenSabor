@@ -55,6 +55,7 @@ def procesar_pedido(request):
         nombre = request.POST.get('nombre')
         direccion = request.POST.get('direccion')
         telefono = request.POST.get('telefono')
+        texto = request.POST.get('texto')
 
         for key, value in carrito.carrito.items():
             producto_id = key
@@ -87,7 +88,8 @@ def procesar_pedido(request):
             total=total_pedido,
             nombre=nombre,
             direccion=direccion,
-            telefono=telefono
+            telefono=telefono,
+            texto=texto,
         )
 
         return redirect("menu")
@@ -103,6 +105,7 @@ def enviar_email(**kwargs):
     nombre = kwargs.get("nombre")
     direccion = kwargs.get("direccion")
     telefono = kwargs.get("telefono")
+    texto = kwargs.get("texto")
 
     mensaje = render_to_string("pedido.html", {
         "pedido": pedido,
@@ -111,7 +114,8 @@ def enviar_email(**kwargs):
         "total": total,
         "nombre": nombre,  
         "direccion": direccion,  
-        "telefono": telefono  
+        "telefono": telefono,
+        "texto": texto,
     })
 
     mensaje_texto = strip_tags(mensaje)

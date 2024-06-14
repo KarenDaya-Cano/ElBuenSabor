@@ -23,9 +23,8 @@
     </style>
 </head>
 <body>
-    <h2>Factura de Pedido</h2>
-    <p>Hola, {{ nombre_usuario }}</p>
-    <p>Email Usuario: {{ email_usuario }}</p>
+    <h2>Factura de Pedido</h2><br>
+    
     <p>Información del Usuario:</p>
     <p>Nombre: {{ nombre }}</p>
     <p>Dirección: {{ direccion }}</p>
@@ -39,6 +38,7 @@
                 <th>Adiciones</th>
                 <th>Precio Unitario</th>
                 <th>Sub Total</th>
+                <th>Ingresar Texto</th>
             </tr>
         </thead>
         <tbody>
@@ -57,7 +57,7 @@
                 </td>
                 <td>{{ linea_pedido.precio_unitario }}</td>
                 <td>{{ linea_pedido.sub_total }}</td> 
-            </tr>
+                <td>{{ texto }}</td>
             {% endfor %}
         </tbody>
     </table>

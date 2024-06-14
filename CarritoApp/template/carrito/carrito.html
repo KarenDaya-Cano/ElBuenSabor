@@ -20,6 +20,7 @@
                     <th>Cantidad</th>
                     <th>Imagen</th>
                     <th>Adiciones</th>
+                    <th>Ingresa texto</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,7 +39,10 @@
                                     <input type="checkbox" name="adiciones_{{ key }}" value="{{ adicion.id }}">{{ adicion.adicion }}<br>
                                 {% endfor %}
                             </div>
-                        </td>                     
+                        </td>
+                        <td>
+                            <input type="text" id="texto" name="texto">
+                        </td>                 
                     </tr>
                     {% endfor %}
                 {% else %}
@@ -50,7 +54,7 @@
                 {% endif %}
                 <tr>
                     <th scope="row">Total:</th>
-                    <td colspan="4">$ {{ total_carrito }}</td>
+                    <td colspan="5">$ {{ total_carrito }}</td>
                 </tr>
             </tbody>
         </table><br><br>
