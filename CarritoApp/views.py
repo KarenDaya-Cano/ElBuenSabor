@@ -7,6 +7,7 @@ from django.core.mail import send_mail
 from django.utils.html import strip_tags
 from django.template.loader import render_to_string
 from .forms import AdicionForm
+from django.contrib.auth.decorators import login_required
 
 def Menu(request):
     lista = Producto.objects.all()
@@ -17,7 +18,10 @@ def pedido(request):
     adicion=Adicion.objects.all()
     return render(request, 'carrito.html', {'productos': productos,'adiciones':adicion})
 
-
+def comprar(request):
+    productos = Producto.objects.all()
+    adicion=Adicion.objects.all()
+    return render(request, 'info.html', {'productos': productos,'adiciones':adicion})
 
 def agregar_producto(request, producto_id):
     carrito = Carrito(request)
@@ -42,17 +46,21 @@ def limpiar_carrito(request):
     carrito.limpiar()
     return redirect('menu')
 
-
 def procesar_pedido(request):
     if request.method == 'POST':
         pedido = Pedido.objects.create(user=request.user)
         carrito = Carrito(request)
         lineas_pedidos = []
 
+        nombre = request.POST.get('nombre')
+        direccion = request.POST.get('direccion')
+        telefono = request.POST.get('telefono')
+
         for key, value in carrito.carrito.items():
             producto_id = key
             cantidad = value["cantidad"]
             producto = Producto.objects.get(id=producto_id)
+            
             
             linea_pedido = LineaPedido(
                 producto=producto,
@@ -60,7 +68,7 @@ def procesar_pedido(request):
                 user=request.user,
                 pedido=pedido,
             )
-            linea_pedido.save()
+            linea_pedido.save()  
 
             adicion_ids = request.POST.getlist(f'adiciones_{key}')
             for adicion_id in adicion_ids:
@@ -70,39 +78,46 @@ def procesar_pedido(request):
             lineas_pedidos.append(linea_pedido)
 
         total_pedido = pedido.total
+        
+        enviar_email(
+            pedido=pedido,
+            lineas_pedidos=lineas_pedidos,
+            nombre_usuario=request.user.username,
+            email_usuario=request.user.email,
+            total=total_pedido,
+            nombre=nombre,
+            direccion=direccion,
+            telefono=telefono
+        )
 
-        # Obtener datos del formulario de contacto
-        nombre = request.POST.get('nombre')
-        direccion = request.POST.get('direccion')
-        telefono = request.POST.get('telefono')
+        return redirect("menu")
 
-        # Enviar correo electrónico con los detalles del pedido y del usuario
-    def enviar_email(pedido, lineas_pedidos, nombre_usuario, email_usuario, total, nombre, direccion, telefono):
-        # Construir el mensaje en formato HTML
-        mensaje_html = f"""
-        <p>Hola {nombre_usuario},</p>
-        <p>Gracias por tu pedido. Aquí está el resumen:</p>
-        <p>Nombre: {nombre}</p>
-        <p>Dirección: {direccion}</p>
-        <p>Teléfono: {telefono}</p>
-        <p>Productos:</p>
-        <ul>
-        """
-        for linea_pedido in lineas_pedidos:
-            mensaje_html += f"<li>{linea_pedido.producto.nombre} - Cantidad: {linea_pedido.cantidad}</li>"
+    return redirect("pedidoo")
 
-        mensaje_html += f"""
-        </ul>
-        <p>Total del pedido: {total}</p>
-        """
+def enviar_email(**kwargs):
+    pedido = kwargs.get("pedido")
+    lineas_pedidos = kwargs.get("lineas_pedidos")
+    nombre_usuario = kwargs.get("nombre_usuario")
+    total = kwargs.get("total")
+    
+    nombre = kwargs.get("nombre")
+    direccion = kwargs.get("direccion")
+    telefono = kwargs.get("telefono")
 
-        # Convertir el mensaje HTML a texto plano
-        mensaje_texto = strip_tags(mensaje_html)
+    mensaje = render_to_string("pedido.html", {
+        "pedido": pedido,
+        "lineas_pedidos": lineas_pedidos,
+        "nombre_usuario": nombre_usuario,
+        "total": total,
+        "nombre": nombre,  
+        "direccion": direccion,  
+        "telefono": telefono  
+    })
 
-        # Configurar el correo electrónico
-        asunto = "Confirmación de pedido"
-        from_email = "web.kmx3@gmail.com"
-        to = email_usuario
+    mensaje_texto = strip_tags(mensaje)
 
-        # Enviar el correo electrónico
-        send_mail(asunto, mensaje_texto, from_email, [to], html_message=mensaje_html)
+    asunto = "Muchas gracias por el pedido"
+    from_email = "web.kmx3@gmail.com"   
+    to = kwargs.get("email_usuario")
+
+    send_mail(asunto, mensaje_texto, from_email, [to], html_message=mensaje)
