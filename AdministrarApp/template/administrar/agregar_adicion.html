@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<title>Agregar Adicion</title>
+<title>Agregar Adición</title>
 <body>
-    <h1  style="text-align: center;">Agregar Adicion</h1><br>
+    <h1 style="text-align: center;">Agregar Adición</h1><br>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <br><button style="margin: auto;display: flex;"  type="submit">Guardar</button>
+        <br><button style="margin: auto;display: flex;" type="submit">Guardar</button>
     </form>
 </body>
 {% endblock %}

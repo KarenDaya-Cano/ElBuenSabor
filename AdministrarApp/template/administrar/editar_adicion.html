@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<title>Editar Adicion</title>
+<title>Editar Adición</title>
 <body>
-    <h1 style="text-align: center;">Editar Adicion</h1><br>
+    <h1 style="text-align: center;">Editar Adición</h1><br>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<title>Administrar Adiciones</title>
+<style>
+    a{color: black; text-decoration: underline; justify-content: center;}
+    h1{text-align: center;}
+</style>
+<body>
+    <br><h1>Administrar Adiciones</h1><br>
+    <a class="agg" href="{% url 'agregar_adicion' %}">Agregar Adición</a>
+    <br><br><table>
+        <tr>
+            <th>Adición</th>
+            <th>Precio</th>
+            <th>Imagen</th>
+            <th>Opción</th>
+        </tr>
+         {% for adicion in adiciones %}
+        <tr>
+            <td>{{ adicion.adicion }}</td>
+            <td>{{ adicion.precio }}</td>
+            <td><img style="width: 30%; border: none;color: black;" src="{{ adicion.imagen.url }}"></td>
+            <td><a href="{% url 'editar_adicion' adicion.pk %}">Editar</a>
+                <a href="{% url 'eliminar_adicion' adicion.pk %}">Eliminar</a></td>
+        </tr>
+        {% endfor %}
+    </table><br><br>
+</body>
+{% endblock %}

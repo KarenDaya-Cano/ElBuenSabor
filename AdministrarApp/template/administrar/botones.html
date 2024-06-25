@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<title>Administrar Productos y Adiciones</title>
+<style>
+    a{color: black; text-decoration: underline; justify-content: center;}
+    h1{text-align: center;}
+</style>
+<body>
+    </body>
+    <br><h1>Administrar Productos y Adiciones</h1><br>
+    br<a class="agg" href="{% url 'admin' %}">Productos</a><br>
+    <a class="agg" href="{% url 'administrar_adiciones' %}">Adiciones</a>
+</body>
+{% endblock %}

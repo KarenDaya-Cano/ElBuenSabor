@@ -14,13 +14,16 @@ def Login(request):
             usuario = authenticate(username = nombre_usuario, password = contrasena)
             if usuario is not None:
                 login(request,usuario)
-                return redirect('admin')
+                return redirect('botones')
             else:
                 messages.error(request, 'Usuario no logeado')
         else:
             messages.error(request,'Informacion Incorrecta')
     form = AuthenticationForm()
     return render(request,"login.html",{"form":form})
+
+def Botones(request):
+    return render(request,"botones.html",{})
 
 def Administrar(request):
     productos = Producto.objects.all()
@@ -65,7 +68,7 @@ def agregar_adicion(request):
         form = AdicionForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('admin')  # Asegúrate de tener la URL correcta a la que redirigir
+            return redirect('administrar_adiciones') 
     else:
         form = AdicionForm()
     return render(request, 'agregar_adicion.html', {'form': form})
@@ -76,7 +79,7 @@ def editar_adicion(request, pk):
         form = AdicionForm(request.POST, request.FILES, instance=adicion)
         if form.is_valid():
             form.save()
-            return redirect('admin')  # Asegúrate de tener la URL correcta a la que redirigir
+            return redirect('administrar_adiciones')  
     else:
         form = AdicionForm(instance=adicion)
     return render(request, 'editar_adicion.html', {'form': form})
@@ -85,5 +88,5 @@ def eliminar_adicion(request, pk):
     adicion = Adicion.objects.get(pk=pk)
     if request.method == 'POST':
         adicion.delete()
-        return redirect('admin')  # Asegúrate de tener la URL correcta a la que redirigir
+        return redirect('administrar_adiciones')  # Asegúrate de tener la URL correcta a la que redirigir
     return render(request, 'eliminar_adicion.html', {'adicion': adicion})
