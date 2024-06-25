@@ -1,7 +1,7 @@
 from pyexpat.errors import messages
 from django.shortcuts import redirect, render
 from ElBuenSaborApp.models import Producto, Adicion
-from .forms import ProductoForm
+from .forms import ProductoForm, AdicionForm
 from django.contrib.auth.forms import AuthenticationForm # creacion del usuario y ya creado el usuario  hacer la autenticacion 
 from django.contrib.auth import login, authenticate # hacer el logeo de la 
 
@@ -57,3 +57,33 @@ def eliminar_producto(request, pk):
         producto.delete()
         return redirect('admin')
     return render(request, 'eliminar_producto.html', {'producto': producto})
+
+# vistas de Adiciones 
+
+def agregar_adicion(request):
+    if request.method == 'POST':
+        form = AdicionForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('admin')  # Asegúrate de tener la URL correcta a la que redirigir
+    else:
+        form = AdicionForm()
+    return render(request, 'agregar_adicion.html', {'form': form})
+
+def editar_adicion(request, pk):
+    adicion = Adicion.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = AdicionForm(request.POST, request.FILES, instance=adicion)
+        if form.is_valid():
+            form.save()
+            return redirect('admin')  # Asegúrate de tener la URL correcta a la que redirigir
+    else:
+        form = AdicionForm(instance=adicion)
+    return render(request, 'editar_adicion.html', {'form': form})
+
+def eliminar_adicion(request, pk):
+    adicion = Adicion.objects.get(pk=pk)
+    if request.method == 'POST':
+        adicion.delete()
+        return redirect('admin')  # Asegúrate de tener la URL correcta a la que redirigir
+    return render(request, 'eliminar_adicion.html', {'adicion': adicion})
