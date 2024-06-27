@@ -18,6 +18,8 @@
         min-height: 100vh; 
         border-radius: 10px;} 
 /* Otros    */
+    .texto_edi{text-align: center;
+        font-weight: bold;}
     a{text-decoration: none;color: aliceblue;}
     i{font-size: 2rem;}
     h1{font-size: 40px;
@@ -166,7 +168,7 @@ nav ul li a:hover{background: linear-gradient(rgb(255, 51, 51),rgb(253, 186, 61)
         text-align: left;}
     .adicionMenu button:hover {background-color: #ddd;}
     .adicionSeleccionadas {margin-top: 10px;}
-    .agg{border:1px solid black; 
+    .agg{border:1px solid; 
         margin: auto; display: flex; 
         width:20%; padding:5px; 
         color: black; 
@@ -264,6 +266,17 @@ nav ul li a:hover{background: linear-gradient(rgb(255, 51, 51),rgb(253, 186, 61)
         border-radius: 5px;
         font-weight: 500;
         cursor:cell;}
+    .boton-container {display: flex;
+        justify-content: center;
+        gap: 10px;}
+    .boton_admin {padding: 8px;
+        justify-content: space-between;
+        color: black;
+        background-color: white;
+        cursor: pointer;
+        border: 1px solid;
+        transition: background-color 0.3s ease;}
+    .boton_admin:hover {background:  orange; }
 </style>
 <body>
     <!-- Bloque para el contenido dinámico, que será reemplazado por las plantillas hijas -->

@@ -9,11 +9,16 @@
 </nav>
 <body>
     <br><h1>Administrar Producto y Adiciones</h1><br>
-    <br><a class="agg" href="{% url 'admin' %}">Productos</a><br>
-    <br><a class="agg" href="{% url 'administrar_adiciones' %}">Adiciones</a><br>
-    <br>
-    <button id="start-button" onclick="startService()">Iniciar Servicio</button>
-    <button id="stop-button" onclick="stopService()">Detener Servicio</button>
+    <p class="texto_edi">aqui editas</p>
+    <div class="boton-container">
+        <br><a class="agg" href="{% url 'admin' %}">Productos</a><br>
+        <br><a class="agg" href="{% url 'administrar_adiciones' %}">Adiciones</a>
+    </div><br><br>
+    <p class="texto_edi">Aqui pausas</p>
+    <div class="boton-container">
+        <button class="boton_admin" id="start-button" onclick="startService()">Iniciar Servicio</button>
+        <button class="boton_admin" id="stop-button" onclick="stopService()">Detener Servicio</button>
+    </div>
 </body>
 
 <script>
