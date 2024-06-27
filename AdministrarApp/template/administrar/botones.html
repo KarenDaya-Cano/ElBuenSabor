@@ -15,30 +15,30 @@
     <button id="start-button" onclick="startService()">Iniciar Servicio</button>
     <button id="stop-button" onclick="stopService()">Detener Servicio</button>
 </body>
-{% endblock %}
 
 <script>
-  function startService() {
-      fetch("{% url 'start_service' %}")
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert("El servicio ha sido iniciado.");
-            } else {
-                alert("No se pudo iniciar el servicio.");
-            }
-        });
-  }
-
-  function stopService() {
-      fetch("{% url 'stop_service' %}")
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert("El servicio ha sido detenido.");
-            } else {
-                alert("No se pudo detener el servicio.");
-            }
-        });
-  }
-</script>
+    function startService() {
+        fetch("{% url 'start_service' %}")
+          .then(response => response.json())
+          .then(data => {
+              if (data.success) {
+                  alert("El servicio ha sido iniciado.");
+              } else {
+                  alert("No se pudo iniciar el servicio.");
+              }
+          });
+    }
+  
+    function stopService() {
+        fetch("{% url 'stop_service' %}")
+          .then(response => response.json())
+          .then(data => {
+              if (data.success) {
+                  alert("El servicio ha sido detenido.");
+              } else {
+                  alert("No se pudo detener el servicio.");
+              }
+          });
+    }
+  </script>
+{% endblock %}
