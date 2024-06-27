@@ -22,8 +22,8 @@
             <td>{{ adicion.adicion }}</td>
             <td>{{ adicion.precio }}</td>
             <td><img style="width: 30%; border: none;color: black;" src="{{ adicion.imagen.url }}"></td>
-            <td><a href="{% url 'editar_adicion' adicion.pk %}">Editar</a>
-                <a href="{% url 'eliminar_adicion' adicion.pk %}">Eliminar</a></td>
+            <td><a style="color: black;" href="{% url 'editar_adicion' adicion.pk %}">Editar</a>
+                <a style="color: black;" href="{% url 'eliminar_adicion' adicion.pk %}">Eliminar</a></td>
         </tr>
         {% endfor %}
     </table><br><br>

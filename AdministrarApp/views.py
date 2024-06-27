@@ -3,9 +3,10 @@ from django.shortcuts import redirect, render
 from ElBuenSaborApp.models import Producto, Adicion
 from .forms import ProductoForm, AdicionForm
 from django.contrib.auth.forms import AuthenticationForm # creacion del usuario y ya creado el usuario  hacer la autenticacion 
-from django.contrib.auth import login, authenticate # hacer el logeo de la 
+from django.contrib.auth import login, authenticate, logout # hacer el logeo de la 
 from django.http import JsonResponse
 from django.core.cache import cache
+from django.contrib.auth.decorators import login_required
 
 def start_service(request):
     cache.set('service_status', 'active')
@@ -32,17 +33,25 @@ def Login(request):
     form = AuthenticationForm()
     return render(request,"login.html",{"form":form})
 
+def cerrar_sesion(request):
+    logout(request)
+    return redirect('inicio')
+
+@login_required
 def Botones(request):
     return render(request,"botones.html",{})
 
+@login_required
 def Administrar(request):
     productos = Producto.objects.all()
     return render(request, 'administrar.html', {'productos': productos})
 
+@login_required
 def administrar_adiciones(request):
     adiciones = Adicion.objects.all()
     return render(request, 'administrar_adiciones.html', {'adiciones': adiciones})
 
+@login_required
 def agregar_producto(request):
     if request.method == 'POST':
         form = ProductoForm(request.POST, request.FILES)
@@ -53,6 +62,7 @@ def agregar_producto(request):
         form = ProductoForm()
     return render(request, 'agregar_producto.html', {'form': form})
 
+@login_required
 def editar_producto(request, pk):
     producto = Producto.objects.get(pk=pk)
     if request.method == 'POST':
@@ -64,6 +74,7 @@ def editar_producto(request, pk):
         form = ProductoForm(instance=producto)
     return render(request, 'editar_producto.html', {'form': form})
 
+@login_required
 def eliminar_producto(request, pk):
     producto = Producto.objects.get(pk=pk)
     if request.method == 'POST':
@@ -73,6 +84,7 @@ def eliminar_producto(request, pk):
 
 # vistas de Adiciones 
 
+@login_required
 def agregar_adicion(request):
     if request.method == 'POST':
         form = AdicionForm(request.POST, request.FILES)
@@ -83,6 +95,7 @@ def agregar_adicion(request):
         form = AdicionForm()
     return render(request, 'agregar_adicion.html', {'form': form})
 
+@login_required
 def editar_adicion(request, pk):
     adicion = Adicion.objects.get(pk=pk)
     if request.method == 'POST':
@@ -94,6 +107,7 @@ def editar_adicion(request, pk):
         form = AdicionForm(instance=adicion)
     return render(request, 'editar_adicion.html', {'form': form})
 
+@login_required
 def eliminar_adicion(request, pk):
     adicion = Adicion.objects.get(pk=pk)
     if request.method == 'POST':

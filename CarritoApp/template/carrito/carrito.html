@@ -70,7 +70,7 @@
 
         <label>Método de pago:</label><br>
 
-        <button type="button" class="pago">Efectivo</button>
+        <button type="button" id="btn-efectivo" class="pago">Efectivo</button>
         <button type="button" class="pago" ><a href="{% url 'qr' %}">QR</a></button><br><br>
         
         <button type="submit" class="agg">Comprar</button>
@@ -78,4 +78,9 @@
 
     </form>
 </div><br><br>
+<script>
+    document.getElementById('btn-efectivo').addEventListener('click', function() {
+        alert('Diríjase a comprar');
+    });
+</script>
 {% endblock %}
