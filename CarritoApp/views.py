@@ -9,6 +9,9 @@ from django.template.loader import render_to_string
 from .forms import AdicionForm
 from django.contrib.auth.decorators import login_required
 
+def qr_view(request):
+    return render(request, 'qr.html')
+
 def Menu(request):
     lista = Producto.objects.all()
     return render(request, 'menu.html', {'productos': lista})

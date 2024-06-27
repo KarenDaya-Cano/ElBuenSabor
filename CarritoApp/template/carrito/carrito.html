@@ -71,10 +71,8 @@
 
         <label>Método de pago:</label><br>
 
-        <input type="submit" name="metodo_pago" value="Efectivo" class="pago"><br><br>
-       
-        <input type="submit" name="metodo_pago" value="QR" class="pago" accept="image/*"><br><br>
-        
+        <button type="button" class="pago">Efectivo</button>
+        <button type="button" class="pago" ><a href="{% url 'qr' %}">QR</a></button><br><br>
         
         <button type="submit" class="agg">Comprar</button>
         <br><a class="agg" href="{% url 'cls' %}">Limpiar</a><br>
