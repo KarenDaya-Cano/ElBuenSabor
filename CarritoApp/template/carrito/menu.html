@@ -22,7 +22,7 @@
                     <br><h3 style="text-transform: uppercase;">{{ producto.producto}}</h3>
                     <br><h5>{{ producto.precio }}</h5><br>
                     <h5>{{producto.descripcion}}</h6><br>
-                    <a class="Adiciones" href="{% url 'add' producto.id %}"><i class="bi bi-plus-circle-fill"></i>Agregar al carrito</a>
+                    <a class="boton_menu" href="{% url 'add' producto.id %}"><i style="font-size: 1.3rem;" class="bi bi-plus-circle-fill"></i>Agregar al carrito</a>
                 </article>
                 
             {% endfor %}

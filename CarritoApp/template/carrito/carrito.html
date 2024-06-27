@@ -11,7 +11,6 @@
 <div class="alert" role="alert">
     <form class="menu-form" method="post" action="{% url 'procesar_pedidos' %}">
         {% csrf_token %}
-        <h1>Carrito</h1><br><br>
         <table>
             <thead>
                 <tr style="text-transform: uppercase;">
@@ -30,13 +29,13 @@
                         <td>{{ value.producto }}</td>
                         <td>{{ value.precio }}</td>
                         <td>
-                            <a href="{% url 'sub' value.producto_id %}">-</a>{{ value.cantidad }}<a href="{% url 'add' value.producto_id %}">+</a>
+                            <a href="{% url 'sub' value.producto_id %}"><i style="font-size: 1.3rem;color:orange" class="bi bi-dash-circle-fill"></i>  </a>{{ value.cantidad }}<a href="{% url 'add' value.producto_id %}">  <i style="font-size: 1.3rem;color:orange" class="bi bi-plus-square-fill"></i></a>
                         </td>
                         <td><img style="max-width: 100px;" src="{{ value.imagen }}"></td>
                         <td>
                             <div>
                                 {% for adicion in adiciones %}
-                                    <input type="checkbox" name="adiciones_{{ key }}" value="{{ adicion.id }}">{{ adicion.adicion }}<br>
+                                    <input type="checkbox" name="adiciones_{{ key }}" value="{{ adicion.id }}"> {{ adicion.adicion }}<br>
                                 {% endfor %}
                             </div>
                         </td>
