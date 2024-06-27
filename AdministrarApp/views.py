@@ -4,6 +4,16 @@ from ElBuenSaborApp.models import Producto, Adicion
 from .forms import ProductoForm, AdicionForm
 from django.contrib.auth.forms import AuthenticationForm # creacion del usuario y ya creado el usuario  hacer la autenticacion 
 from django.contrib.auth import login, authenticate # hacer el logeo de la 
+from django.http import JsonResponse
+from django.core.cache import cache
+
+def start_service(request):
+    cache.set('service_status', 'active')
+    return JsonResponse({'success': True})
+
+def stop_service(request):
+    cache.set('service_status', 'inactive')
+    return JsonResponse({'success': True})
 
 def Login(request):
     if request.method=="POST":

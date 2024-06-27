@@ -7,10 +7,32 @@
     </div>      
   <a class="a_menu" href="{% url 'login' %}"><i class="bi bi-person-fill-gear"></i> Administrar</a>
 </nav>
+<div id="service-message" style="display: none;">
+  <h2>En este momento no estamos atendiendo, vuelve más tarde.</h2>
+</div>
 <div class="inicio">
     <h1>¿QUE SE TE ANTOJA HOY?</h1>
-    <button class="boton_menu"><a href="{% url 'menu' %}">Menu</a></button>
+    <button id="menu-button" class="boton_menu"><a href="{% url 'menu' %}">Menu</a></button>
 </div>
 <img style="margin: auto;display: flex; border: none;" src="{% static 'C:\ElBuenSabor\ElBuenSabor\static\elbuensaborapp\imagen\image.png' %}">
 <br><br>
 {% endblock %}
+
+<script>
+  function checkServiceStatus() {
+      fetch("{% url 'check_service_status' %}")
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'inactive') {
+                document.getElementById('service-message').style.display = 'block';
+                document.getElementById('menu-button').style.display = 'none';
+            } else {
+                document.getElementById('service-message').style.display = 'none';
+                document.getElementById('menu-button').style.display = 'block';
+            }
+        });
+  }
+
+  window.onload = checkServiceStatus;
+  setInterval(checkServiceStatus, 60000);
+</script>

@@ -12,6 +12,12 @@ SECRET_KEY = 'django-insecure-m=h@gk6wk$^4-qje5#0po*l7d)skgyedlqxm266wt$y2*o3mry
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    }
+}
+
 ALLOWED_HOSTS = []
 
 STATICFILES_DIRS= ['C:/ElBuenSabor/ElBuenSabor/static/elbuensaborapp']
