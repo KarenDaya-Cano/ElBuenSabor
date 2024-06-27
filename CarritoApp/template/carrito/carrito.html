@@ -71,11 +71,9 @@
 
         <label>Método de pago:</label><br>
 
-        <label for="pago_efectivo">Pagar en efectivo</label>
-        <input type="submit" id="pago_efectivo" name="metodo_pago" value="Efectivo" class="pago"><br><br>
+        <input type="submit" name="metodo_pago" value="Efectivo" class="pago"><br><br>
        
-        <label for="pago_qr">Pagar por QR</label>
-        <input type="submit" id="pago_qr" name="metodo_pago" value="QR" class="pago"><br><br>
+        <input type="file" name="metodo_pago" value="QR" class="pago" accept="image/*"><br><br>
         
         
         <button type="submit" class="agg">Comprar</button>
