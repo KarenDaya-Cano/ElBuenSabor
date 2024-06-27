@@ -69,9 +69,18 @@
         <label for="telefono">Teléfono:</label><br>
         <input type="tel" id="telefono" name="telefono"><br><br>
 
+        <label>Método de pago:</label><br>
+
+        <label for="pago_efectivo">Pagar en efectivo</label>
+        <input type="submit" id="pago_efectivo" name="metodo_pago" value="efectivo"><br><br>
+       
+        <label for="pago_qr">Pagar por QR</label>
+        <input type="submit" id="pago_qr" name="metodo_pago" value="qr" style="background-color: #ff6347;"><br><br>
+        
         
         <button type="submit" class="agg">Comprar</button>
-        <br><a class="agg" href="{% url 'cls' %}">Limpiar</a>
+        <br><a class="agg" href="{% url 'cls' %}">Limpiar</a><br>
+
     </form>
 </div><br><br>
 {% endblock %}
