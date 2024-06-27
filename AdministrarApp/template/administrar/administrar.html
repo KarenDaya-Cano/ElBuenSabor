@@ -2,10 +2,11 @@
 {% load static %}
 {% block content %}
 <title>Administrar Productos</title>
-<style>
-    a{color: black; text-decoration: underline; justify-content: center;}
-    h1{text-align: center;}
-</style>
+<nav class="buscador">  
+    <div class="container">
+        <a href="{% url 'botones' %}"><i style="font-size: 2rem;" class="bi bi-arrow-left-circle"></i></a>
+    </div>
+</nav>
 <body>
     <br><h1>Administrar Productos</h1><br>
     <a class="agg" href="{% url 'agregar_producto' %}">Agregar Producto</a>
