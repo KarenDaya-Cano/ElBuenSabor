@@ -1,7 +1,23 @@
 {% extends 'base.html' %}
 {% load static%}
 {% block content %}
-
-<h1>Paga Por Nequi</h1>
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paga Por QR</title>
+    <style>
+        .image {margin: auto;
+            display: flex;
+        }
+        p {text-align: center;}   
+    </style>
+</head>
+<h1>Paga Por Nequi</h1><br><br>
+<img class="image" src="{% static 'C:\ElBuenSabor\ElBuenSabor\static\elbuensaborapp\imagen\WhatsApp Image 2024-06-28 at 9.27.08 AM.jpeg' %}" alt="Imagen estática" style="width: 300px; height: 300px;"><br>
+<p>Número: <strong>3158956593</strong></p><br><br>
+<form action="/tu/ruta/de/procesamiento" method="post" enctype="multipart/form-data">
+    <label for="imagen">Subir Comprobante:</label><br>
+    <input type="file" id="imagen" name="imagen" accept="image/*"><br><br>
+    <input type="submit" value="Enviar Comprobante">
+</form>
 {% endblock %}

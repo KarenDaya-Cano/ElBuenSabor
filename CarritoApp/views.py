@@ -6,8 +6,7 @@ from ElBuenSaborApp.models import Producto,Adicion
 from django.core.mail import send_mail
 from django.utils.html import strip_tags
 from django.template.loader import render_to_string
-from .forms import AdicionForm
-from django.contrib.auth.decorators import login_required
+
 
 def qr_view(request):
     return render(request, 'qr.html')
@@ -97,7 +96,7 @@ def procesar_pedido(request):
 
         return redirect("menu")
 
-    return redirect("pedidoo")
+    return redirect("pedido")
 
 def enviar_email(**kwargs):
     pedido = kwargs.get("pedido")
@@ -128,3 +127,40 @@ def enviar_email(**kwargs):
     to = kwargs.get("email_usuario")
 
     send_mail(asunto, mensaje_texto, from_email, [to], html_message=mensaje)
+    
+# from django.shortcuts import render
+# from django.core.mail import EmailMessage
+# from django.conf import settings
+
+# def procesar_formulario(request):
+#     if request.method == 'POST':
+        
+#         imagen = request.FILES.get('imagen', None)
+
+#         if imagen:
+#             Procesar la imagen si es necesario
+#             Aquí podrías guardarla en el sistema de archivos o hacer otras operaciones
+
+#             Preparar el correo electrónico
+#             subject = 'Comprobante de pago'
+#             message = 'Se adjunta el comprobante de pago.'
+#             from_email = settings.EMAIL_HOST_USER
+#             to_email = ['destinatario@example.com']  # Reemplaza con el destinatario deseado
+
+#             Crear el objeto de mensaje de correo electrónico
+#             email = EmailMessage(subject, message, from_email, to_email)
+#             email.attach(imagen.name, imagen.read(), imagen.content_type)  # Adjuntar la imagen al correo
+
+#             try:
+#                 email.send()  # Envía el correo electrónico
+#             except Exception as e:
+#                 Maneja cualquier error en el envío del correo electrónico
+#                 Aquí podrías registrar el error en un log o mostrar un mensaje al usuario
+#                 print(f'Error al enviar correo electrónico: {e}')
+#                 return render(request, 'error.html')  # Renderiza una página de error
+
+#             Si el correo se envió correctamente, puedes redirigir o mostrar un mensaje de éxito
+#             return render(request, 'exito.html')  # Renderiza una página de éxito o redirige a donde sea necesario
+
+#     Si no es un método POST o no se envió correctamente, renderiza el formulario nuevamente
+#     return render(request, 'qr.html')  # Renderiza el formulario de carga de imagen nuevamente
