@@ -64,14 +64,13 @@
         <input placeholder="Direccion" type="text" id="direccion" name="direccion"><br>
 
         <input placeholder="Telefono" type="tel" id="telefono" name="telefono"><br>
-    <div class="boton-container">
-        <label>Método de pago:</label><br>
-        
+        <div class="boton-container">
+        <label>Método de pago:</label><br>    
         <button type="button" id="btn-efectivo" class="pago">Efectivo</button>
         <button type="button" class="pago" ><a href="{% url 'qr' %}">QR</a></button></div><br><br>
-        
+        <div class="boton-container">
         <button type="submit" class="agg">Comprar</button>
-        <br><a class="agg" href="{% url 'cls' %}">Limpiar</a><br></div>
+        <br><a class="botoncito" href="{% url 'cls' %}">Limpiar</a><br></div>
 
     </form>
 </div><br><br>
