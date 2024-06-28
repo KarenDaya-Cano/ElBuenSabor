@@ -57,24 +57,21 @@
                 </tr>
             </tbody>
         </table><br><br>
+        <div class="contacto">
+        <br><h1>Informacion de contacto</h1><br>
+        <input placeholder="Nombre" type="text" id="nombre" name="nombre"><br>
 
-        <br><h1>Informacion de contacto</h1><br><br>
-        <label for="nombre">Nombre:</label><br>
-        <input type="text" id="nombre" name="nombre"><br><br>
+        <input placeholder="Direccion" type="text" id="direccion" name="direccion"><br>
 
-        <label for="direccion">Dirección:</label><br>
-        <input type="text" id="direccion" name="direccion"><br><br>
-
-        <label for="telefono">Teléfono:</label><br>
-        <input type="tel" id="telefono" name="telefono"><br><br>
-
+        <input placeholder="Telefono" type="tel" id="telefono" name="telefono"><br>
+    <div class="boton-container">
         <label>Método de pago:</label><br>
-
+        
         <button type="button" id="btn-efectivo" class="pago">Efectivo</button>
-        <button type="button" class="pago" ><a href="{% url 'qr' %}">QR</a></button><br><br>
+        <button type="button" class="pago" ><a href="{% url 'qr' %}">QR</a></button></div><br><br>
         
         <button type="submit" class="agg">Comprar</button>
-        <br><a class="agg" href="{% url 'cls' %}">Limpiar</a><br>
+        <br><a class="agg" href="{% url 'cls' %}">Limpiar</a><br></div>
 
     </form>
 </div><br><br>
