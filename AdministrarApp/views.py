@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from ElBuenSaborApp.models import Producto, Adicion
 from .forms import ProductoForm, AdicionForm
 from django.contrib.auth.forms import AuthenticationForm # creacion del usuario y ya creado el usuario  hacer la autenticacion 
-from django.contrib.auth import login, authenticate, logout # hacer el logeo de la 
+from django.contrib.auth import login, authenticate, logout 
 from django.http import JsonResponse
 from django.core.cache import cache
 from django.contrib.auth.decorators import login_required
@@ -36,6 +36,10 @@ def Login(request):
 def cerrar_sesion(request):
     logout(request)
     return redirect('inicio')
+
+#vista para manejo de errores o exepciones en el navegador
+def custom_error_view(request,exception):
+    return render(request,'custom_error_view.html',{"messge":'Paguina no valida para usuarios'})
 
 @login_required
 def Botones(request):

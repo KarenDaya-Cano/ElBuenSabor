@@ -10,7 +10,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-m=h@gk6wk$^4-qje5#0po*l7d)skgyedlqxm266wt$y2*o3mry'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
+
+DEBUG = False # 27/06 modifique para mensajes de error
 
 CACHES = {
     'default': {
@@ -18,7 +20,10 @@ CACHES = {
     }
 }
 
-ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = ['*'] # 27/06 modifique para mensajes de error
+
 
 STATICFILES_DIRS= ['C:/ElBuenSabor/ElBuenSabor/static/elbuensaborapp']
 

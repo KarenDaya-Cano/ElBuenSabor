@@ -3,6 +3,9 @@ from AdministrarApp import views
 from django.conf import settings
 from django.conf.urls.static import static
 
+from django.conf.urls import handler403 #modifique para mensaje de error
+handler403 = views.custom_error_view
+
 urlpatterns = [
     path('login',views.Login, name='login'),
     path('cerrar_sesion',views.cerrar_sesion, name="cerrar_sesion"),
