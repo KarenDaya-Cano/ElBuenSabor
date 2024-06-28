@@ -5,8 +5,8 @@
 <nav class="buscador">  
     <div class="container">
         <a href="{% url 'inicio' %}"><i style="font-size: 2rem;" class="bi bi-arrow-left-circle"></i></a>
-        {% if user.is_authenticated %}
-        {{user.username}}&nbsp;&nbsp; <a href="{% url 'cerrar_sesion' %}" style="text-decoration: none; color: #dc3545; font-weight: bold; padding: 5px 10px; border: 2px solid #dc3545; border-radius: 5px;"><i class="bi bi-box-arrow-right"></i> Cerrar sesión</a>
+        <p style="color: white;text-transform: uppercase;">{% if user.is_authenticated %} Bienvenido 
+        "{{user.username}}"</p> <a href="{% url 'cerrar_sesion' %}"><i style="font-size: 1.2rem;" class="bi bi-box-arrow-right"></i> Cerrar sesión</a>
         {% endif %}
     </div>
 </nav>
