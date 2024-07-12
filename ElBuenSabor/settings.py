@@ -22,6 +22,8 @@ CACHES = {
 
 ALLOWED_HOSTS = []
 
+MESSGES_STORAGE = "django.contrib.messages.storage.cookie.CooKieStorage"
+
 #ALLOWED_HOSTS = ['*'] # 27/06 modifique para mensajes de error
 
 MESSGES_STORAGE = "django.contrib.messages.storage.cookie.CooKieStorage"
