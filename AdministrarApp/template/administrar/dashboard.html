@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<title>Dashboard - Administrar Productos y Adiciones</title>
+
+<nav class="buscador">  
+    <div class="container">
+        <a href="{% url 'botones' %}"><i style="font-size: 2rem;" class="bi bi-arrow-left-circle"></i></a>
+        <a href="{% url 'cerrar_sesion' %}"><i style="font-size: 1.2rem;" class="bi bi-box-arrow-right"></i> Cerrar sesión</a>
+    </div>
+</nav>
+
+<body>
+    <br><p class="texto_edi">Bienvenido "{{ user.username }}"</p><br>
+    
+    <div class="admin-container">
+        <h2>Dashboard</h2>
+        <p>Aquí puedes ver la cantidad de los productos y adiciones.</p>
+
+        <div class="summary">
+            <div class="summary-box">
+                <h3>Cantidad de Productos</h3>
+                <p>{{ product_count }}</p>
+            </div>
+            <div class="summary-box">
+                <h3>Cantidad de Adiciones</h3>
+                <p>{{ addition_count }}</p>
+            </div>
+        </div>
+    </div>
+  
+</body>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        color: #333333;
+        font-size: 18px;
+    }
+
+    .admin-container {
+        text-align: center;
+        margin: 20px auto;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .summary {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+    }
+
+    .summary-box {
+        background: linear-gradient(red, orange);;
+        color: white;
+        border-radius: 10px;
+        padding: 30px;
+        width: 200px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s;
+    }
+
+    .summary-box:hover {
+        transform: scale(1.05);
+    }
+
+    .texto_edi {
+        font-size: 1.5rem;
+        color: #0a0b0b;
+    }
+
+    .buscador {
+        background-color: #f8350e;
+        padding: 10px;
+        color: white;
+    }
+
+    .buscador a {
+        color: white;
+        text-decoration: none;
+        margin-right: 15px;
+    }
+
+    .buscador a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+{% endblock %}

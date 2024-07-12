@@ -1,12 +1,12 @@
-from pyexpat.errors import messages
 from django.shortcuts import redirect, render
 from ElBuenSaborApp.models import Producto, Adicion
 from .forms import ProductoForm, AdicionForm
-from django.contrib.auth.forms import AuthenticationForm # creacion del usuario y ya creado el usuario  hacer la autenticacion 
+from django.contrib.auth.forms import AuthenticationForm 
 from django.contrib.auth import login, authenticate, logout 
 from django.http import JsonResponse
 from django.core.cache import cache
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 def start_service(request):
     cache.set('service_status', 'active')
@@ -17,33 +17,41 @@ def stop_service(request):
     return JsonResponse({'success': True})
 
 def Login(request):
-    if request.method=="POST":
-        form = AuthenticationForm(request,data = request.POST)#permite capturar los datos en el formulario de logeo
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            nombre_usuario=form.cleaned_data.get('username')
+            nombre_usuario = form.cleaned_data.get('username')
             contrasena = form.cleaned_data.get('password')
-            usuario = authenticate(username = nombre_usuario, password = contrasena)
+            usuario = authenticate(username=nombre_usuario, password=contrasena)
             if usuario is not None:
-                login(request,usuario)
+                login(request, usuario)
                 return redirect('botones')
             else:
                 messages.error(request, 'Usuario no logeado')
         else:
-            messages.error(request,'Informacion Incorrecta')
+            messages.error(request, 'Información incorrecta')
     form = AuthenticationForm()
-    return render(request,"login.html",{"form":form})
+    return render(request, "login.html", {"form": form})
 
 def cerrar_sesion(request):
     logout(request)
     return redirect('inicio')
 
-#vista para manejo de errores o exepciones en el navegador
-def custom_error_view(request,exception):
-    return render(request,'custom_error_view.html',{"messge":'Paguina no valida para usuarios'})
+def custom_error_view(request, exception):
+    return render(request, 'custom_error_view.html', {"message": 'Página no válida para usuarios'})
 
 @login_required
 def Botones(request):
-    return render(request,"botones.html",{})
+    return render(request, "botones.html", {})
+
+@login_required
+def dashboard(request):
+    product_count = Producto.objects.count()
+    addition_count = Adicion.objects.count()
+    return render(request, 'dashboard.html', {
+        'product_count': product_count,
+        'addition_count': addition_count
+    })
 
 @login_required
 def Administrar(request):
@@ -86,8 +94,6 @@ def eliminar_producto(request, pk):
         return redirect('admin')
     return render(request, 'eliminar_producto.html', {'producto': producto})
 
-# vistas de Adiciones 
-
 @login_required
 def agregar_adicion(request):
     if request.method == 'POST':
@@ -116,5 +122,13 @@ def eliminar_adicion(request, pk):
     adicion = Adicion.objects.get(pk=pk)
     if request.method == 'POST':
         adicion.delete()
-        return redirect('administrar_adiciones')  # Asegúrate de tener la URL correcta a la que redirigir
+        return redirect('administrar_adiciones')  
     return render(request, 'eliminar_adicion.html', {'adicion': adicion})
+ 
+def dashboard(request):
+    product_count = Producto.objects.count()
+    addition_count = Adicion.objects.count()
+    return render(request, 'dashboard.html', {
+        'product_count': product_count,
+        'addition_count': addition_count
+    })

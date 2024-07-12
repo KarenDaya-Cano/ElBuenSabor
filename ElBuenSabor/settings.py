@@ -59,7 +59,7 @@ ROOT_URLCONF = 'ElBuenSabor.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['C:/ElBuenSabor/ElBuenSaborApp/template/elbuensabor','C:/ElBuenSabor/AdministrarApp/template/administrar','C:/ElBuenSabor/CarritoApp/template/carrito'],
+        'DIRS': ['C:/ElBuenSabor/ElBuenSaborApp/template/elbuensabor','C:/ElBuenSabor/AdministrarApp/template/administrar','C:/ElBuenSabor/CarritoApp/template/carrito','C:/ElBuenSabor/AdministrarApp/template/administrar/dashboard.html'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -18,8 +18,25 @@
             <div class="boton-container">
                 <a class="botoncito" href="{% url 'admin' %}">Productos</a>
                 <a class="botoncito" href="{% url 'administrar_adiciones' %}">Adiciones</a>
+                <div class="admin-container">
+
+                    </div>
+                </div>
+                
+               
             </div>
         </div>
+        <div class="admin-container">
+            <div class="admin-box">
+                <h2>Mira tu cantidad de productos y adiciones </h2><br>
+                <div class="boton-container">
+                    <a class="botoncito" href="{% url 'dashboard' %}"> cantidad de adiciones y productos</a>
+                    <div class="admin-container">
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="admin-container">
         <div class="admin-box">
             <h2>Habilitar/Deshabilitar Página</h2><br>
             <p>En este apartado podrás habilitar y deshabilitar la página para no recibir más pedidos.</p><br>
@@ -28,9 +45,11 @@
                 <button class="botoncito" id="stop-button" onclick="stopService()">Detener Servicio</button>
             </div>
         </div>
+        </div>
     </div>
     {% endif %}
 </body>
+
 
 <script>
     function startService() {
@@ -56,6 +75,8 @@
               }
           });
     }
+
+                
 </script>
 
 {% endblock %}

@@ -7,7 +7,49 @@
         <a href="{% url 'botones' %}"><i style="font-size: 2rem;" class="bi bi-arrow-left-circle"></i></a>
     </div>
 </nav>
-<h1>hola</h1>
+<style>
+    .dashboard {
+        background-color: #f9f9f9;
+        border: 1px solid #f33b08;
+        border-radius: 8px;
+        padding: 20px;
+        max-width: 600px;
+        margin: 20px auto;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .dashboard h2 {
+        font-family: Arial, sans-serif;
+        color: #333;
+        text-align: center;
+    }
+
+    .dashboard ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .dashboard li {
+        margin: 10px 0;
+    }
+
+    .dashboard a {
+        text-decoration: none;
+        color: #ff4400;
+        transition: color 0.3s;
+    }
+
+    .dashboard a:hover {
+        color: #ed5a25;
+    }
+
+    .dashboard p {
+        font-size: 16px;
+        color: #555;
+        text-align: center;
+        margin-top: 20px;
+    }
+</style>
 <body>
     <br><h1>Administrar Adiciones</h1><br>
     <a class="agg" href="{% url 'agregar_adicion' %}">Agregar Adición</a>
