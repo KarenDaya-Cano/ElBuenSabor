@@ -48,6 +48,7 @@ def limpiar_carrito(request):
     carrito.limpiar()
     return redirect('menu')
 
+
 def procesar_pedido(request):
     if request.method == 'POST':
         pedido = Pedido.objects.create(user=request.user)
@@ -63,7 +64,6 @@ def procesar_pedido(request):
             producto_id = key
             cantidad = value["cantidad"]
             producto = Producto.objects.get(id=producto_id)
-            
             
             linea_pedido = LineaPedido(
                 producto=producto,
@@ -94,9 +94,14 @@ def procesar_pedido(request):
             texto=texto,
         )
 
+        # Agregar mensaje de éxito
+        messages.success(request, "Tu pedido ha sido enviado exitosamente.")
+        
         return redirect("menu")
 
     return redirect("pedido")
+
+
 
 def enviar_email(**kwargs):
     pedido = kwargs.get("pedido")
