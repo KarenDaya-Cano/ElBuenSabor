@@ -1,4 +1,4 @@
-from pyexpat.errors import messages
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from CarritoApp.models import LineaPedido, Pedido
 from .carrito import Carrito
@@ -6,7 +6,6 @@ from ElBuenSaborApp.models import Producto,Adicion
 from django.core.mail import send_mail
 from django.utils.html import strip_tags
 from django.template.loader import render_to_string
-
 
 def qr_view(request):
     return render(request, 'qr.html')
@@ -29,23 +28,27 @@ def agregar_producto(request, producto_id):
     carrito = Carrito(request)
     producto = Producto.objects.get(id=producto_id)
     carrito.agregar(producto)
+    messages.success(request, (f'El producto {producto} se ha agregado al carrito.'))
     return redirect('menu')
 
 def eliminar_producto(request, producto_id):
     carrito = Carrito(request)
     producto = Producto.objects.get(id=producto_id)
     carrito.eliminar(producto)
+    messages.warning(request, f'El producto "{producto}" se ha eliminado del carrito.')
     return redirect('pedido')
 
 def restar_producto(request, producto_id):
     carrito = Carrito(request)
     producto = Producto.objects.get(id=producto_id)
     carrito.restar(producto)
+    messages.warning(request, f'Se ha restado 1 unidad del producto "{producto}".')
     return redirect('pedido')
 
 def limpiar_carrito(request):
     carrito = Carrito(request)
     carrito.limpiar()
+    messages.info(request, 'El carrito se ha vaciado.')
     return redirect('menu')
 
 def procesar_pedido(request):
