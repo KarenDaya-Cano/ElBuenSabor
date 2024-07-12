@@ -35,14 +35,14 @@ def eliminar_producto(request, producto_id):
     carrito = Carrito(request)
     producto = Producto.objects.get(id=producto_id)
     carrito.eliminar(producto)
-    messages.warning(request, f'El producto "{producto}" se ha eliminado del carrito.')
+    messages.warning(request, f'El producto {producto} se ha eliminado del carrito.')
     return redirect('pedido')
 
 def restar_producto(request, producto_id):
     carrito = Carrito(request)
     producto = Producto.objects.get(id=producto_id)
     carrito.restar(producto)
-    messages.warning(request, f'Se ha restado 1 unidad del producto "{producto}".')
+    messages.warning(request, (f'Se ha restado 1 unidad del producto {producto}.'))
     return redirect('pedido')
 
 def limpiar_carrito(request):
