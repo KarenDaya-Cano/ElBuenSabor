@@ -24,6 +24,7 @@ ALLOWED_HOSTS = []
 
 #ALLOWED_HOSTS = ['*'] # 27/06 modifique para mensajes de error
 
+MESSGES_STORAGE = "django.contrib.messages.storage.cookie.CooKieStorage"
 
 STATICFILES_DIRS= ['C:/ElBuenSabor/ElBuenSabor/static/elbuensaborapp']
 

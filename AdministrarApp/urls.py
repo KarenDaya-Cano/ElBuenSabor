@@ -20,10 +20,6 @@ urlpatterns = [
     path('administrar/adiciones/eliminar/<int:pk>/', views.eliminar_adicion, name='eliminar_adicion'),
     path('start-service/', views.start_service, name='start_service'),
     path('stop-service/', views.stop_service, name='stop_service'),
-<<<<<<< HEAD
     path('dashboard/',views. dashboard, name='dashboard'),
-=======
-    
->>>>>>> e8a7b49cc7a16c599cab7252bab69b8d0b6bd339
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

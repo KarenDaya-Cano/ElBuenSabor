@@ -12,6 +12,7 @@
 </nav>
 
 <body>
+    {% if user.is_authenticated %}
     <br><p class="texto_edi">Bienvenido "{{ user.username }}"</p><br>
     
     <div class="admin-container">
@@ -29,7 +30,9 @@
             </div>
         </div>
     </div>
-  
+    {% else %}
+        <p>Debes iniciar sesión para ver esta página.</p>
+    {% endif %}
 </body>
 
 <style>
