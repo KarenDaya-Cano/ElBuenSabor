@@ -20,5 +20,6 @@ urlpatterns = [
     path('administrar/adiciones/eliminar/<int:pk>/', views.eliminar_adicion, name='eliminar_adicion'),
     path('start-service/', views.start_service, name='start_service'),
     path('stop-service/', views.stop_service, name='stop_service'),
+    
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

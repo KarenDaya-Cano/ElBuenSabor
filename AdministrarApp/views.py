@@ -1,6 +1,6 @@
 from pyexpat.errors import messages
 from django.shortcuts import redirect, render
-from ElBuenSaborApp.models import Producto, Adicion
+from ElBuenSaborApp.models import Producto, Adicion, Venta
 from .forms import ProductoForm, AdicionForm
 from django.contrib.auth.forms import AuthenticationForm # creacion del usuario y ya creado el usuario  hacer la autenticacion 
 from django.contrib.auth import login, authenticate, logout 
