@@ -311,6 +311,18 @@ nav ul li a:hover{background: linear-gradient(rgb(255, 51, 51),rgb(253, 186, 61)
     {% block content %}
     <!-- Este bloque se llenará con el contenido de las plantillas hijas -->
     {% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {% if messages %}
+      {% for mensaje in messages %}
+      <script>
+        Swal.fire({
+          "title": "felicitaciones",
+          "text": "{{mensaje}}",
+          "icon": "success"
+        })
+      </script>
+      {% endfor %}
+    {% endif %}
 </body>
 <footer>
     <a href="#" style="padding-left: 15px;">Comidas Rapidas</a>
