@@ -8,32 +8,29 @@
 </head>
 <style>
 /* Estilo general de todos los HTML */
-    *{padding: 0; margin: 0;}
-    html{background: linear-gradient(red, orange);
-        padding: 20px;
+    * {padding: 0;
+        margin: 0;
+        box-sizing: border-box;}
+    html {background: linear-gradient(red, orange);
+        padding: 2%;
         font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;}
-    body{padding: 0; 
-        background: #fff; 
-        margin: 0; 
-        min-height: 100vh; 
-        border-radius: 10px;}
-        .admin-container {
-        display: flex;
+    body {padding: 0;
+        background: #fff;
+        margin: 0;
+        min-height: 100vh;
+        border-radius: 10px;
+        position: relative;}
+    .admin-container {display: flex;
         justify-content: space-around;
         align-items: flex-start;
-        margin: 20px;
-    }
-    .admin-box {
-        background-color: #f8f9fa;
+        margin: 20px;}
+    .admin-box {background-color: #f8f9fa;
         border: 1px solid #dee2e6;
         border-radius: 5px;
         padding: 20px;
         width: 45%;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-    .admin-box h2 {
-        color: #ff4500;
-    }
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);}
+    .admin-box h2 {color: #ff4500;}
 /* Otros    */
     .texto_edi{text-align: center;
         font-size: 40px;
@@ -59,7 +56,7 @@
         padding: 14px 20px; 
         text-decoration: none; 
         font-size:25px;}    
-nav ul li a:hover{background: linear-gradient(rgb(255, 51, 51),rgb(253, 186, 61));}
+    nav ul li a:hover{background: linear-gradient(rgb(255, 51, 51),rgb(253, 186, 61));}
 /*HTML de menu */
     .buscador {background-color: red;
         padding: 10px;
@@ -92,83 +89,48 @@ nav ul li a:hover{background: linear-gradient(rgb(255, 51, 51),rgb(253, 186, 61)
     h1 {text-align: center;color: red;}
 /* Tablas de todos los HTML */
     table {border-collapse: collapse;
-        width: 60%;
+        width: 100%;
+        max-width: 800px; /* Establecer un ancho máximo para la tabla */
         margin: auto;}
     td, th {border: 1px solid #ddd;
         padding: 8px;
         text-align: left;}
-    th {background-color: orange;color: white;}
+    th {background-color: orange;
+        color: white;}
+    @media screen and (max-width: 600px) {
+        table {
+            width: 100%;}
+        td, th {font-size: 12px;}}
 /* tabla carrito */
-    /* Estilos para el formulario del menú */
-.menu-form {
-    width: 60%; /* Ancho de la tabla */
-    margin: auto; /* Centrar la tabla */
-    border-collapse: collapse; /* Colapso de bordes */
-}
-
-.menu-form td, .menu-form th {
-    border: 1px solid #ddd; /* Estilo del borde */
-    padding: 8px; /* Espaciado interno */
-    text-align: left; /* Alineación del texto */
-}
-
-.menu-form th {
-    background-color: orange; /* Color de fondo del encabezado */
-    color: white; /* Color del texto del encabezado */
-}
-.menu-form {border-collapse: collapse;
-    background-color: #fff; /* Nuevo estilo para el fondo */
-    padding: 20px; /* Nuevo estilo para el relleno */
-    border-radius: 10px; /* Nuevo estilo para los bordes redondeados */
-}
-
-.menu-form td, .menu-form th {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
-
-.menu-form th {
-    background-color: orange;
-    color: white;
-}
-
-.menu-form label {
-    display: block;
-    margin-bottom: 5px;
-    color: #333;
-}
-
-.menu-form input[type="text"],
-.menu-form input[type="tel"] {
-    width: calc(100% - 20px); /* Ajustar ancho al 100% del contenedor, restando el espacio para el borde y el padding */
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-.menu-form button[type="submit"] {
-    background-color: #ff4500;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.menu-form button[type="submit"]:hover {
-    background-color: #ff6347;
-}
-.contacto{
-    margin: auto;
-    width: 80%;
-    padding: 10px;
-}
+/* Estilos para el formulario del menú */
+    .menu-form {width: 60%;
+        max-width: 800px; 
+        margin: auto;}
+    @media screen and (max-width: 600px) {
+    .menu-form{
+        width: 100%;}}
+    .menu-form label {display: block;
+        margin-bottom: 5px;
+        color: #333;}
+    .menu-form input[type="text"],.menu-form input[type="tel"] {width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;}
+    .menu-form button[type="submit"] {background-color: #ff4500;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;}
+    .menu-form button[type="submit"]:hover {background-color: #ff6347;}
+    .contacto{margin: auto;
+        width: 80%;
+        padding: 10px;}
 /* Alerta de carrito sin productos */
 /* Carrito HtML */
-    .alert-danger {background-color: red;
-        color: white;
+    .alert-danger {background-color: whitesmoke;
+        color: black;
         text-align: center;
         padding: 10px;}
     .adicionMenu {display: none;
@@ -281,12 +243,13 @@ nav ul li a:hover{background: linear-gradient(rgb(255, 51, 51),rgb(253, 186, 61)
         clip-path: circle(390px at 150px 24px);} 
 /* Footer */
     footer {text-align: center;
-        background:orange;
+        background: orange;
         color: #fff;
         padding: 10px;
-        position:fixed;
-        bottom: 0; 
-        width: 100%; }
+        position: absolute;
+        bottom: 0;
+        width: 100%;}
+
 /* Boton general */
     .botoncito{background-color: #ff4500;
         color: #fff;
