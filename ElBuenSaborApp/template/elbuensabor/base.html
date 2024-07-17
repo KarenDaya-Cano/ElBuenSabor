@@ -190,7 +190,7 @@
     .boton_menu{background:#ff4500;
         color: #f9f9f9;
         border-radius: 15px;
-        padding: 15px; font-size: 20px; 
+        padding: 15px; font-size: 15px; 
         font-weight: bold; 
         text-transform: uppercase;
         border: 1px solid;} 
@@ -249,7 +249,6 @@
         position: absolute;
         bottom: 0;
         width: 100%;}
-
 /* Boton general */
     .botoncito{background-color: #ff4500;
         color: #fff;
@@ -268,6 +267,28 @@
         border: 1px solid;
         transition: background-color 0.3s ease;}
     .boton_admin:hover {background:  orange; }
+/* Estilo para el dashboard */
+    .dashboard {background-color: #f9f9f9;
+        border: 1px solid #f33b08;
+        border-radius: 8px;
+        padding: 20px;
+        max-width: 600px;
+        margin: 20px auto;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);}
+    .dashboard h2 {font-family: Arial, sans-serif;
+        color: #333;
+        text-align: center;}
+    .dashboard ul {list-style-type: none;
+        padding: 0;}
+    .dashboard li {margin: 10px 0;}
+    .dashboard a {text-decoration: none;
+        color: #ff4400;
+        transition: color 0.3s;}
+    .dashboard a:hover {color: #ed5a25;}
+    .dashboard p {font-size: 16px;
+        color: #555;
+        text-align: center;
+        margin-top: 20px;}
 </style>
 <body>
     <!-- Bloque para el contenido dinámico, que será reemplazado por las plantillas hijas -->
@@ -277,7 +298,7 @@
         {% for mensaje in messages %}
         <script>
             Swal.fire({
-            "title": "Felicitaciones",
+            "title": "Realizado",
             "text": "{{ mensaje }}",
             "icon": "success"
             });

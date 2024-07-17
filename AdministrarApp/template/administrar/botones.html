@@ -2,15 +2,16 @@
 {% load static %}
 {% block content %}
 <title>Administrar Productos y Adiciones</title>
+{% if user.is_authenticated %}
 <nav class="buscador">  
     <div class="container">
         <a href="{% url 'inicio' %}"><i style="font-size: 2rem;" class="bi bi-arrow-left-circle"></i></a>
+        <a class="texto_edi">Bienvenido "{{user.username}}"</a>
         <a href="{% url 'cerrar_sesion' %}"><i style="font-size: 1.2rem;" class="bi bi-box-arrow-right"></i> Cerrar sesión</a>
     </div>
 </nav>
 <body>
-    {% if user.is_authenticated %}
-    <br><p class="texto_edi">Bienvenido "{{user.username}}"</p><br>
+    <br>
     <div class="admin-container">
         <div class="admin-box">
             <h2>Administrar Productos y Adiciones</h2><br>
@@ -46,7 +47,7 @@
             </div>
         </div>
         </div>
-    </div>
+    </div><br><br>
     {% endif %}
 </body>
 

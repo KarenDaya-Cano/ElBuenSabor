@@ -21,20 +21,19 @@
                     <img style="border: none;" id="imagen" src="{{ producto.imagen.url }}" height="250" width="250"><br>
                     <br><h3 style="text-transform: uppercase;">{{ producto.producto}}</h3>
                     <br><h5>{{ producto.precio }}</h5><br>
-                    <h5>{{producto.descripcion}}</h6><br>
+                    <br><h5>{{producto.descripcion}}</h5><br><br>
                     <a class="boton_menu" href="{% url 'add' producto.id %}"><i style="font-size: 1.3rem;" class="bi bi-plus-circle-fill"></i> Agregar al carrito</a>
                 </article>
-                
             {% endfor %}
         </div>
     </div>
-</main><br><br>   
+</main><br><br><br>   
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {% if messages %}
         {% for mensaje in messages %}
         <script>
             Swal.fire({
-            "title": "Felicitaciones",
+            "title": "Realizado",
             "text": "{{ mensaje }}",
             "icon": "success"
             });

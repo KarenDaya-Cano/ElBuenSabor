@@ -12,25 +12,19 @@
 </nav>
 
 <body>
-    {% if user.is_authenticated %}
-    <br><p class="texto_edi">Bienvenido "{{ user.username }}"</p><br>
-    
+    {% if user.is_authenticated %}    
     <div class="admin-container">
         <h2>Dashboard</h2>
         <p>Aquí puedes ver la cantidad de los productos y adiciones.</p>
 
         <div class="summary">
             <div class="summary-box">
+                <p><i class="bi bi-bag-plus"></i></p>
                 <h3>Cantidad de Productos</h3>
-<<<<<<< HEAD
                 <p>{{ product_count }}</p><br><br>
-            </div>
-            <div class="summary-box"><br><br>
-=======
-                <p>{{ product_count }}</p>
             </div>&nbsp;&nbsp;&nbsp;    
             <div class="summary-box">
->>>>>>> 6947136ebef4b48bf015ea9c15decc12b2d79110
+                <p><i class="bi bi-bag-plus"></i></p>
                 <h3>Cantidad de Adiciones</h3>
                 <p>{{ addition_count }}</p>
             </div>
