@@ -7,49 +7,6 @@
             <a href="{% url 'botones' %}"><i style="font-size: 2rem;" class="bi bi-arrow-left-circle"></i></a>
         </div>
     </nav>
-    <style>
-        .dashboard {
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 20px;
-            max-width: 600px;
-            margin: 20px auto;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-    
-        .dashboard h2 {
-            font-family: Arial, sans-serif;
-            color: #333;
-            text-align: center;
-        }
-    
-        .dashboard ul {
-            list-style-type: none;
-            padding: 0;
-        }
-    
-        .dashboard li {
-            margin: 10px 0;
-        }
-    
-        .dashboard a {
-            text-decoration: none;
-            color: #007BFF;
-            transition: color 0.3s;
-        }
-    
-        .dashboard a:hover {
-            color: #0056b3;
-        }
-    
-        .dashboard p {
-            font-size: 16px;
-            color: #555;
-            text-align: center;
-            margin-top: 20px;
-        }
-    </style>
     <div class="main-content">
   
         <h1>Administrar Productos</h1>
@@ -68,8 +25,8 @@
                 <td>{{ producto.precio }}</td>
                 <td><img style="width: 30%; border: none;color: black;" src="{{ producto.imagen.url }}"></td>
                 <td>
-                    <a style="color: black;" href="{% url 'editar_producto' producto.pk %}">Editar</a>
-                    <a style="color: black;" href="{% url 'eliminar_producto' producto.pk %}">Eliminar</a>
+                    <a style="color: black;" href="{% url 'editar_producto' producto.pk %}"><i style="font-size: 1.5rem;" class="bi bi-pencil-square"></i></a>
+                    <a style="color: black;" href="{% url 'eliminar_producto' producto.pk %}"><i style="font-size: 1.5rem;" class="bi bi-trash3"></i></a>
                 </td>
             </tr>
             {% endfor %}

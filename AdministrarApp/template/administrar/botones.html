@@ -2,19 +2,19 @@
 {% load static %}
 {% block content %}
 <title>Administrar Productos y Adiciones</title>
+{% if user.is_authenticated %}
 <nav class="buscador">  
     <div class="container">
         <a href="{% url 'inicio' %}"><i style="font-size: 2rem;" class="bi bi-arrow-left-circle"></i></a>
+        <a class="texto_edi">Bienvenido {{user.username}}</a>
         <a href="{% url 'cerrar_sesion' %}"><i style="font-size: 1.2rem;" class="bi bi-box-arrow-right"></i> Cerrar sesión</a>
     </div>
 </nav>
 <body>
-    {% if user.is_authenticated %}
-    <br><p class="texto_edi">Bienvenido "{{user.username}}"</p><br>
+    <br>
     <div class="admin-container">
         <div class="admin-box">
-            <h2>Administrar Productos y Adiciones</h2><br>
-            <p>{{user.username}}, en este apartado podrás administrar los productos y  las adiciones de tu local de comidas rápidas "EL BUEN SABOR".</p><br>
+            <h2>Administrar </h2><br>
             <div class="boton-container">
                 <a class="botoncito" href="{% url 'admin' %}">Productos</a>
                 <a class="botoncito" href="{% url 'administrar_adiciones' %}">Adiciones</a>
@@ -28,7 +28,6 @@
         </div>
         <div class="admin-container">
             <div class="admin-box">
-                <h2>Mira tu cantidad de productos y adiciones </h2><br>
                 <div class="boton-container">
                     <a class="botoncito" href="{% url 'dashboard' %}"> cantidad de adiciones y productos</a>
                     <div class="admin-container">
@@ -38,15 +37,14 @@
         </div>
         <div class="admin-container">
         <div class="admin-box">
-            <h2>Habilitar/Deshabilitar Página</h2><br>
-            <p>En este apartado podrás habilitar y deshabilitar la página para no recibir más pedidos.</p><br>
+            <h2>Habilitar/Deshabilitar Página</h2>
             <div class="boton-container">
                 <button class="botoncito" id="start-button" onclick="startService()">Iniciar Servicio</button>
                 <button class="botoncito" id="stop-button" onclick="stopService()">Detener Servicio</button>
             </div>
         </div>
         </div>
-    </div>
+    </div><br><br>
     {% endif %}
 </body>
 
