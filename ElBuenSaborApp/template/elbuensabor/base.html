@@ -13,7 +13,7 @@
         box-sizing: border-box;}
     html {background: linear-gradient(red, orange);
         padding: 2%;
-        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;}
+        font-family: Arial, Helvetica, sans-serif}
     body {padding: 0;
         background: #fff;
         margin: 0;
@@ -34,7 +34,7 @@
 /* Otros    */
     .texto_edi{text-align: center;
         font-size: 40px;
-        text-transform: uppercase;
+        text-transform: capitalize;
         }
     a{text-decoration: none;color: aliceblue;}
     i{font-size: 2rem;}
@@ -192,7 +192,7 @@
         border-radius: 15px;
         padding: 15px; font-size: 15px; 
         font-weight: bold; 
-        text-transform: uppercase;
+        text-transform: capitalize;
         border: 1px solid;} 
     .inicio{text-align: center;
         max-width: 50%;
@@ -289,6 +289,10 @@
         color: #555;
         text-align: center;
         margin-top: 20px;}
+/* scrollbar*/
+    ::-webkit-scrollbar { width: 10px;}
+    ::-webkit-scrollbar-track {background-color: #f1f1f1;}
+    ::-webkit-scrollbar-thumb {background: linear-gradient(25deg, rgb(255, 0, 0), rgb(255, 136, 0));}
 </style>
 <body>
     <!-- Bloque para el contenido dinámico, que será reemplazado por las plantillas hijas -->
