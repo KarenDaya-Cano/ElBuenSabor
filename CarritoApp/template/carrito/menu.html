@@ -19,6 +19,7 @@
             {% for producto in productos %}
                 <article class="card">
                     <img style="border: none;" id="imagen" src="{{ producto.imagen.url }}" height="250" width="250"><br>
+                    <br><h3>{{ producto.producto}}</h3>
                     <br><h3 style="text-transform: capitalize;">{{ producto.producto}}</h3>
                     <br><h5>{{ producto.precio }}</h5><br>
                     <h5><div class="tooltip">

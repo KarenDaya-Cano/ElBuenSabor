@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Reporte de Ventas</title>
+</head>
+<body>
+    <h1>Reporte de Ventas del día {{ fecha_actual }}</h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad Vendida</th>
+                <th>Ingresos Totales</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for venta in ventas_por_producto %}
+            <tr>
+                <td>{{ venta.producto__producto }}</td>
+                <td>{{ venta.cantidad_vendida }}</td>
+                <td>{{ venta.ingresos_totales }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+{% endblock %}
