@@ -10,6 +10,10 @@ from django.contrib import messages
 from datetime import date
 from CarritoApp.models import Producto, LineaPedido
 from django.db.models import Sum, F
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+from django.http import HttpResponse
+import csv
 
 def start_service(request):
     cache.set('service_status', 'active')
@@ -127,7 +131,8 @@ def eliminar_adicion(request, pk):
         adicion.delete()
         return redirect('administrar_adiciones')  
     return render(request, 'eliminar_adicion.html', {'adicion': adicion})
- 
+
+@login_required
 def dashboard(request):
     product_count = Producto.objects.count()
     addition_count = Adicion.objects.count()
@@ -136,6 +141,7 @@ def dashboard(request):
         'addition_count': addition_count
     })
 
+@login_required
 def reporte_ventas(request):
     fecha_actual = date.today()
     ventas_por_producto = LineaPedido.objects.filter(
@@ -145,3 +151,52 @@ def reporte_ventas(request):
         ingresos_totales=Sum(F('cantidad') * F('producto__precio'))
     )
     return render(request, 'reporte.html', {'ventas_por_producto': ventas_por_producto})
+
+def reporte_ventas_pdf(request):
+    fecha_actual = date.today()
+
+    ventas_por_producto = LineaPedido.objects.filter(
+        pedido__created__date=fecha_actual
+    ).values('producto__producto').annotate(
+        cantidad_vendida=Sum('cantidad'),
+        ingresos_totales=Sum(F('cantidad') * F('producto__precio'))
+    )
+
+    template_path = 'reporte_pdf.html'
+    context = {'ventas_por_producto': ventas_por_producto, 'fecha_actual': fecha_actual}
+    template = get_template(template_path)
+    html = template.render(context)
+
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="reporte_ventas.pdf"'
+
+    pisa_status = pisa.CreatePDF(
+       html, dest=response
+    )
+    return response
+
+
+
+def reporte_ventas_csv(request):
+    fecha_actual = date.today()
+
+    ventas_por_producto = LineaPedido.objects.filter(
+        pedido__created__date=fecha_actual
+    ).values('producto__producto').annotate(
+        cantidad_vendida=Sum('cantidad'),
+        ingresos_totales=Sum(F('cantidad') * F('producto__precio'))
+    )
+
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="reporte_ventas.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['Producto', 'Cantidad Vendida', 'Ingresos Totales'])
+
+    for venta in ventas_por_producto:
+        writer.writerow([
+            venta['producto__producto'],  
+            venta['cantidad_vendida'],    
+            venta['ingresos_totales'],    
+        ])
+    return response
