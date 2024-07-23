@@ -20,25 +20,30 @@
                     <th>Cantidad</th>
                     <th>Imagen</th>
                     <th>Adiciones</th>
-                    <th>Ingresa texto</th>
+                    <th><div class="tooltip">
+                        <div style="text-decoration: underline;" class="icon">Descartar</div>
+                        <div style="font-size: 15px;" class="tooltiptext">Si no deseas algo del producto, indicalo aca 👇🏻</div>
+                      </div>                    
+                      </th>
                 </tr>
             </thead>
             <tbody>
                 {% if request.session.carrito %}
                     {% for key, value in request.session.carrito.items %}
                     <tr>
-                        <td>{{ value.producto }}</td>
+                        <td style="text-transform: capitalize;">{{ value.producto }}</td>
                         <td>{{ value.precio }}</td>
                         <td>
                             <a href="{% url 'sub' value.producto_id %}"><i style="font-size: 1.3rem;color:orange" class="bi bi-dash-circle-fill"></i>  </a>{{ value.cantidad }}<a href="{% url 'add' value.producto_id %}">  <i style="font-size: 1.3rem;color:orange" class="bi bi-plus-square-fill"></i></a>
                         </td>
                         <td><img style="max-width: 100px;" src="{{ value.imagen }}"></td>
                         <td>
-                            <div>
-                                {% for adicion in adiciones %}
-                                    <input type="checkbox" name="adiciones_{{ key }}" value="{{ adicion.id }}"> {{ adicion.adicion }}<br>
-                                {% endfor %}
-                            </div>
+                            <div class="tooltip">
+                                <div style="text-decoration: underline;" class="icon"><i style="color: orange;" class="bi bi-caret-down-square-fill"></i></div>
+                                <div class="tooltiptext">{% for adicion in adiciones %}                                     
+                                    <input class="checkbox-input" type="checkbox" name="adiciones_{{ key }}" value="{{ adicion.id }}"> {{ adicion.adicion }}<br>
+                                {% endfor %}</div>
+                              </div>
                         </td>
                         <td>
                             <input type="text" id="texto" name="texto">
