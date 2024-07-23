@@ -137,15 +137,11 @@ def dashboard(request):
     })
 
 def reporte_ventas(request):
-    # Obtener la fecha actual
     fecha_actual = date.today()
-
-    # Filtrar las líneas de pedido para el día actual y sumar las cantidades y precios
     ventas_por_producto = LineaPedido.objects.filter(
         pedido__created__date=fecha_actual
     ).values('producto__producto').annotate(
         cantidad_vendida=Sum('cantidad'),
         ingresos_totales=Sum(F('cantidad') * F('producto__precio'))
     )
-
     return render(request, 'reporte.html', {'ventas_por_producto': ventas_por_producto})
