@@ -6,6 +6,7 @@
     <div class="container">
         <a href="{% url 'menu' %}"><i style="font-size: 2rem;" class="bi bi-arrow-left-circle"></i></a>
         <a class="buscador-carrito" href="#">ESTE ES TU PEDIDO</a>
+        <i style="color: white;" class="bi bi-person-fill"></i>
     </div>
 </nav><br>
 <div class="alert" role="alert">
@@ -13,7 +14,7 @@
         {% csrf_token %}
         <table>
             <thead>
-                <tr style="text-transform: uppercase;">
+                <tr style="text-transform: capitalize;">
                     <th>Producto</th>
                     <th>Precio</th>
                     <th>Cantidad</th>

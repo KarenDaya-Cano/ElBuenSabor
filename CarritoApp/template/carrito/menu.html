@@ -5,7 +5,7 @@
 <nav class="buscador">  
     <div class="container">
         <a href="{% url 'inicio' %}"><i style="font-size: 2rem;" class="bi bi-arrow-left-circle"></i></a>
-        <a class="buscador-carrito" href="#">MENU</a>
+        <a class="buscador-carrito" href="#">MENÚ</a>
         <a href="{% url 'pedido' %}"><i style="font-size: 2rem;" class="bi bi-cart4"></i></a>
     </div>
 </nav>
@@ -19,9 +19,14 @@
             {% for producto in productos %}
                 <article class="card">
                     <img style="border: none;" id="imagen" src="{{ producto.imagen.url }}" height="250" width="250"><br>
-                    <br><h3 style="text-transform: uppercase;">{{ producto.producto}}</h3>
+                    <br><h3 style="text-transform: capitalize;">{{ producto.producto}}</h3>
                     <br><h5>{{ producto.precio }}</h5><br>
-                    <br><h5>{{producto.descripcion}}</h5><br><br>
+                    <h5><div class="tooltip">
+                        <div style="text-decoration: underline;" class="icon">Descripción</div>
+                        <div class="tooltiptext">{{producto.descripcion}}</div>
+                      </div>
+                      
+                      </h5><br><br>
                     <a class="boton_menu" href="{% url 'add' producto.id %}"><i style="font-size: 1.3rem;" class="bi bi-plus-circle-fill"></i> Agregar al carrito</a>
                 </article>
             {% endfor %}
