@@ -14,7 +14,6 @@
     <br>
     <div class="admin-container">
         <div class="admin-box">
-            <h2>Administrar </h2><br>
             <div class="boton-container">
                 <a class="botoncito" href="{% url 'admin' %}">Productos</a>
                 <a class="botoncito" href="{% url 'administrar_adiciones' %}">Adiciones</a>
@@ -29,7 +28,8 @@
         <div class="admin-container">
             <div class="admin-box">
                 <div class="boton-container">
-                    <a class="botoncito" href="{% url 'dashboard' %}"> cantidad de adiciones y productos</a>
+                    <a class="botoncito" href="{% url 'dashboard' %}"> Dashboard</a>
+                    <a class="botoncito" href="{% url 'reporte_ventas' %}"> Reporte de ventas</a>
                     <div class="admin-container">
                         </div>
                 </div>
@@ -37,22 +37,13 @@
         </div>
         <div class="admin-container">
         <div class="admin-box">
-            <h2>Habilitar/Deshabilitar Página</h2>
             <div class="boton-container">
                 <button class="botoncito" id="start-button" onclick="startService()">Iniciar Servicio</button>
                 <button class="botoncito" id="stop-button" onclick="stopService()">Detener Servicio</button>
             </div>
         </div>
         </div>
-        <div class="admin-container">
-            <div class="admin-box">
-                <div class="boton-container">
-                    <a class="botoncito" href="{% url 'reporte_ventas' %}"> Reporte de ventas</a>
-                    <div class="admin-container">
-                        </div>
-                </div>
-            </div>
-        </div>
+        
     </div><br><br>
     {% endif %}
 </body>
