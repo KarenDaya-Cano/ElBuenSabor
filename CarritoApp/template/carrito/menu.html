@@ -19,7 +19,7 @@
             {% for producto in productos %}
                 <article class="card">
                     <img style="border: none;" id="imagen" src="{{ producto.imagen.url }}" height="250" width="250"><br>
-                    <br><h3 style="text-transform: uppercase;">{{ producto.producto}}</h3>
+                    <br><h3>{{ producto.producto}}</h3>
                     <br><h5>{{ producto.precio }}</h5><br>
                     <br><h5>{{producto.descripcion}}</h5><br><br>
                     <a class="boton_menu" href="{% url 'add' producto.id %}"><i style="font-size: 1.3rem;" class="bi bi-plus-circle-fill"></i> Agregar al carrito</a>
