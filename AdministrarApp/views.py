@@ -7,6 +7,9 @@ from django.http import JsonResponse
 from django.core.cache import cache
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from datetime import date
+from CarritoApp.models import Producto, LineaPedido
+from django.db.models import Sum, F
 
 def start_service(request):
     cache.set('service_status', 'active')
@@ -132,3 +135,17 @@ def dashboard(request):
         'product_count': product_count,
         'addition_count': addition_count
     })
+
+def reporte_ventas(request):
+    # Obtener la fecha actual
+    fecha_actual = date.today()
+
+    # Filtrar las líneas de pedido para el día actual y sumar las cantidades y precios
+    ventas_por_producto = LineaPedido.objects.filter(
+        pedido__created__date=fecha_actual
+    ).values('producto__producto').annotate(
+        cantidad_vendida=Sum('cantidad'),
+        ingresos_totales=Sum(F('cantidad') * F('producto__precio'))
+    )
+
+    return render(request, 'reporte.html', {'ventas_por_producto': ventas_por_producto})

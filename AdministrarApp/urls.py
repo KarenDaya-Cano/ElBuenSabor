@@ -21,5 +21,6 @@ urlpatterns = [
     path('start-service/', views.start_service, name='start_service'),
     path('stop-service/', views.stop_service, name='stop_service'),
     path('dashboard/',views. dashboard, name='dashboard'),
+    path('reporte-ventas/', views.reporte_ventas, name='reporte_ventas'),   
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

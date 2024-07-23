@@ -96,8 +96,6 @@ def procesar_pedido(request):
             telefono=telefono,
             texto=texto,
         )
-
-        # Agregar mensaje de éxito
         messages.success(request, "Tu pedido ha sido enviado exitosamente.")
         
         return redirect("menu")
