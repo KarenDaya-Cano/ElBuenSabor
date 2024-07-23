@@ -1,17 +1,30 @@
-{% extends "base.html" %}
-
-{% load static %}
-{% load crispy_forms_tags %}
-{% block content %}
-
+<!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Reporte de Ventas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
     <h1>Reporte de Ventas del día {{ fecha_actual }}</h1>
 
-    <table border="1">
+    <table>
         <thead>
             <tr>
                 <th>Producto</th>
@@ -30,9 +43,5 @@
         </tbody>
     </table>
 
-    <a class="botoncito" href="{% url 'reporte_ventas_csv' %}" target="_blank">Descargar como CSV</a>
-    <br><br><br>
-    <a class="botoncito" href="{% url 'reporte_ventas_pdf' %}" target="_blank">Descargar como PDF</a>
 </body>
 </html>
-{% endblock %}
