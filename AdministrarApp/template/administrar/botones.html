@@ -3,6 +3,14 @@
 {% block content %}
 <title>Administrar Productos y Adiciones</title>
 {% if user.is_authenticated %}
+<style>
+    body {
+        background-image: url('{% static "C:/ElBuenSabor/ElBuenSabor/static/elbuensaborapp/hamburger.jpg" %}');
+      background-size: cover;
+      background-repeat: no-repeat;
+}
+
+</style>
 <nav class="buscador">  
     <div class="container">
         <a href="{% url 'inicio' %}"><i style="font-size: 2rem;" class="bi bi-arrow-left-circle"></i></a>
