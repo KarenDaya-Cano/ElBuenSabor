@@ -54,10 +54,13 @@ def limpiar_carrito(request):
 
 def procesar_pedido(request):
     if request.method == 'POST':
-        pedido = Pedido.objects.create(user=request.user)
+        # Crea el pedido sin usuario asociado
+        pedido = Pedido.objects.create()
+
         carrito = Carrito(request)
         lineas_pedidos = []
 
+        # Obtén los datos del formulario
         nombre = request.POST.get('nombre')
         direccion = request.POST.get('direccion')
         telefono = request.POST.get('telefono')
@@ -68,10 +71,10 @@ def procesar_pedido(request):
             cantidad = value["cantidad"]
             producto = Producto.objects.get(id=producto_id)
             
+            # Crear la línea de pedido sin usuario
             linea_pedido = LineaPedido(
                 producto=producto,
                 cantidad=cantidad,
-                user=request.user,
                 pedido=pedido,
             )
             linea_pedido.save()  
@@ -83,13 +86,15 @@ def procesar_pedido(request):
             
             lineas_pedidos.append(linea_pedido)
 
-        total_pedido = pedido.total
+        # Calcula el total del pedido
+        total_pedido = sum([lp.producto.precio * lp.cantidad for lp in lineas_pedidos])
         
+        # Llama a la función para enviar el correo electrónico, asegurando que se envíe al correo deseado
         enviar_email(
             pedido=pedido,
             lineas_pedidos=lineas_pedidos,
-            nombre_usuario=request.user.username,
-            email_usuario=request.user.email,
+            nombre_usuario=nombre,  # En este caso, nombre del usuario se usa como nombre del remitente
+            email_usuario="web.kmx3@gmail.com",  # Enviar siempre a esta dirección
             total=total_pedido,
             nombre=nombre,
             direccion=direccion,
@@ -101,8 +106,6 @@ def procesar_pedido(request):
         return redirect("menu")
 
     return redirect("pedido")
-
-
 
 def enviar_email(**kwargs):
     pedido = kwargs.get("pedido")
@@ -130,8 +133,8 @@ def enviar_email(**kwargs):
 
     asunto = "Muchas gracias por el pedido"
     from_email = "web.kmx3@gmail.com"   
-    to = kwargs.get("email_usuario")
+    to = kwargs.get("email_usuario", "web.kmx3@gmail.com")  # Asegura que siempre tenga un valor
 
     send_mail(asunto, mensaje_texto, from_email, [to], html_message=mensaje)
-    
+
 
