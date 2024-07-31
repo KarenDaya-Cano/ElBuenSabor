@@ -1,16 +1,22 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <title>Administrar Productos</title>
-    <nav class="buscador">  
-        <div class="container">
-            <a href="{% url 'botones' %}"><i style="font-size: 2rem;" class="bi bi-arrow-left-circle"></i></a>
-        </div>
-    </nav>
+<title>Administrar Productos</title>
+<style>
+    body {
+        background-image: url('{% static "C:/ElBuenSabor/ElBuenSabor/static/elbuensaborapp/image.png" %}');
+        background-size: cover;
+        background-repeat: no-repeat;}
+</style>
+<nav class="buscador">  
+    <div class="container">
+        <a href="{% url 'botones' %}"><i style="font-size: 2rem;" class="bi bi-arrow-left-circle"></i></a>
+        <a class="buscador-carrito">Administrar Productos</a>
+    </div>
+</nav>
+<body>
     <div class="main-content">
-  
-        <h1>Administrar Productos</h1>
-        <a class="agg" href="{% url 'agregar_producto' %}">Agregar Producto</a>
+        <br><a class="botoncito" href="{% url 'agregar_producto' %}">Agregar Producto</a>
         <br><br>
         <table>
             <tr>
@@ -33,4 +39,5 @@
         </table>
         <br><br>
     </div>
+</body>
 {% endblock %}

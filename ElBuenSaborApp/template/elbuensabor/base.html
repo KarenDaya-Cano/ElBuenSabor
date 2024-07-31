@@ -21,21 +21,13 @@
         border-radius: 10px;
         position: relative;}
     .admin-container {display: flex;
-        justify-content: space-around;
-        align-items: flex-start;
-        margin: 20px;}
-    .admin-box {background-color: #f8f9fa;
-        border: 1px solid #dee2e6;
-        border-radius: 5px;
-        padding: 20px;
-        width: 45%;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);}
-    .admin-box h2 {color: #ff4500;}
+      justify-content: center; /* Centra el contenido horizontalmente */
+      align-items: flex-start;
+      margin: 20px;}
 /* Otros    */
     .texto_edi{text-align: center;
         font-size: 40px;
-        text-transform: capitalize;
-        }
+        text-transform: capitalize;}
     a{text-decoration: none;color: aliceblue;}
     i{font-size: 2rem;}
     h1{font-size: 40px;
@@ -256,9 +248,9 @@
         padding: 10px 20px;
         border: none;
         border-radius: 5px;
-        cursor: pointer;}
+        cursor: pointer;
+        font-size: 20px;}
     .boton-container {display: flex;
-        justify-content: center;
         gap: 10px;}
     .boton_admin {padding: 8px;
         justify-content: space-between;
@@ -323,6 +315,14 @@
         border-width: 10px;
         border-style: solid;
         border-color: transparent transparent #333 transparent;}
+
+        @media screen and (max-width: 600px) {
+      /* Estilos para pantallas más pequeñas */
+      .boton-container {
+        flex-direction: column; /* Coloca los botones en columna */
+      }
+    }
+
 </style>
 <body>
     <!-- Bloque para el contenido dinámico, que será reemplazado por las plantillas hijas -->
@@ -344,6 +344,6 @@
    
 </body>
 <footer>
-    <a href="#" style="padding-left: 15px;">Parque De Santa Barbara</a>
+    <a href="https://maps.app.goo.gl/XrfXgHtsKsG68bqW6" style="padding-left: 15px;">Parque De Santa Barbara</a>
 </footer>
 </html>

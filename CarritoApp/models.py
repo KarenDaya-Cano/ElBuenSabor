@@ -1,13 +1,10 @@
 from django.db import models
-from django.contrib.auth import get_user_model
 from ElBuenSaborApp.models import Adicion, Producto
 from django.db.models import F, Sum, FloatField
 
-
-User = get_user_model()
 class Pedido(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
-    created = models.DateTimeField(auto_now_add = True)
+    # Eliminar el campo user
+    created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = 'pedidos'
@@ -16,16 +13,16 @@ class Pedido(models.Model):
         ordering = ['id']
 
     def __str__(self):
-        return self.id
+        return str(self.id)
     
     @property
     def total(self):
         return self.lineapedido_set.aggregate(
-            total = Sum(F("producto__precio")*F("cantidad"), output_field = FloatField())
+            total=Sum(F("producto__precio") * F("cantidad"), output_field=FloatField())
         )["total"]
     
 class LineaPedido(models.Model):
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    # Eliminar el campo user
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
     cantidad = models.IntegerField(default=1)

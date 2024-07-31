@@ -3,6 +3,12 @@
 {% block content %}
 <title>Administrar Productos y Adiciones</title>
 {% if user.is_authenticated %}
+<style>
+    body {
+        background-image: url('{% static "C:/ElBuenSabor/ElBuenSabor/static/elbuensaborapp/hamburger.jpg" %}');
+        background-size: cover;
+        background-repeat: no-repeat;}
+</style>
 <nav class="buscador">  
     <div class="container">
         <a href="{% url 'inicio' %}"><i style="font-size: 2rem;" class="bi bi-arrow-left-circle"></i></a>
@@ -13,42 +19,21 @@
 <body>
     <br>
     <div class="admin-container">
-        <div class="admin-box">
-            <div class="boton-container">
-                <a class="botoncito" href="{% url 'admin' %}">Productos</a>
-                <a class="botoncito" href="{% url 'administrar_adiciones' %}">Adiciones</a>
-                <div class="admin-container">
-
-                    </div>
-                </div>
-                
-               
-            </div>
+        <div class="boton-container">
+            <button class="botoncito"><a  href="{% url 'admin' %}">Productos</a></button>
+            <button class="botoncito"><a  href="{% url 'administrar_adiciones' %}">Adiciones</a></button>
+            <button class="botoncito"><a href="{% url 'dashboard' %}"> Dashboard</a></button>
+            <button class="botoncito"><a href="{% url 'reporte_ventas' %}"> Reporte de ventas</a></button>
         </div>
-        <div class="admin-container">
-            <div class="admin-box">
-                <div class="boton-container">
-                    <a class="botoncito" href="{% url 'dashboard' %}"> Dashboard</a>
-                    <a class="botoncito" href="{% url 'reporte_ventas' %}"> Reporte de ventas</a>
-                    <div class="admin-container">
-                        </div>
-                </div>
-            </div>
+    </div>
+    <div class="admin-container">
+        <div class="boton-container">
+            <button class="botoncito" id="start-button" onclick="startService()">Iniciar Servicio</button>
+            <button class="botoncito" id="stop-button" onclick="stopService()">Detener Servicio</button>
         </div>
-        <div class="admin-container">
-        <div class="admin-box">
-            <div class="boton-container">
-                <button class="botoncito" id="start-button" onclick="startService()">Iniciar Servicio</button>
-                <button class="botoncito" id="stop-button" onclick="stopService()">Detener Servicio</button>
-            </div>
-        </div>
-        </div>
-        
-    </div><br><br>
-    {% endif %}
-</body>
-
-
+    </div>
+</body><br><br>
+{% endif %}
 <script>
     function startService() {
         fetch("{% url 'start_service' %}")

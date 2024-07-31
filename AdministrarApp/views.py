@@ -175,8 +175,6 @@ def reporte_ventas_pdf(request):
     )
     return response
 
-
-
 def reporte_ventas_csv(request):
     fecha_actual = date.today()
 

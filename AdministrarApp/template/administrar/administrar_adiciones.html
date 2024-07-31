@@ -2,13 +2,20 @@
 {% load static %}
 {% block content %}
 <title>Administrar Adiciones</title>
+<style>
+    body {
+        background-image: url('{% static "C:/ElBuenSabor/ElBuenSabor/static/elbuensaborapp/image.png" %}');
+        background-size: cover;
+        background-repeat: no-repeat;}
+</style>
 <nav class="buscador">  
     <div class="container">
         <a href="{% url 'botones' %}"><i style="font-size: 2rem;" class="bi bi-arrow-left-circle"></i></a>
+        <a class="buscador-carrito">Administrar Adiciones</a>
+
     </div>
 </nav>
 <body>
-    <br><h1>Administrar Adiciones</h1><br>
     <a class="agg" href="{% url 'agregar_adicion' %}">Agregar Adición</a>
     <br><br><table>
         <tr>
