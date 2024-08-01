@@ -120,10 +120,6 @@ def procesar_pedido(request):
 
     return redirect("pedido")
 
-<<<<<<< HEAD
-
-
-
 def Menu(request):
     lista_productos = Producto.objects.all()
     lista_adiciones = Adicion.objects.all()
@@ -172,9 +168,6 @@ def limpiar_carrito(request):
     messages.info(request, 'El carrito se ha vaciado.')
     return redirect('menu')
 
-
-=======
->>>>>>> 1cf28baa70f7b002679279d093372b1cb4bd50b3
 def enviar_email(**kwargs):
     pedido = kwargs.get("pedido")
     lineas_pedidos = kwargs.get("lineas_pedidos")
@@ -204,8 +197,3 @@ def enviar_email(**kwargs):
     to = kwargs.get("email_usuario", "web.kmx3@gmail.com")  # Asegura que siempre tenga un valor
 
     send_mail(asunto, mensaje_texto, from_email, [to], html_message=mensaje)
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 1cf28baa70f7b002679279d093372b1cb4bd50b3
