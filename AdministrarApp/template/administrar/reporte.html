@@ -21,10 +21,8 @@
 
     </div>
 </nav>
-<body>
-    <h1>Reporte de Ventas del día {{ fecha_actual }}</h1>
-
-    <table border="1">
+<body><br>
+    <table>
         <thead>
             <tr>
                 <th>Producto</th>
@@ -41,11 +39,13 @@
             </tr>
             {% endfor %}
         </tbody>
-    </table>
-
-    <a class="botoncito" href="{% url 'reporte_ventas_csv' %}" target="_blank">Descargar como CSV</a>
-    <br><br><br>
-    <a class="botoncito" href="{% url 'reporte_ventas_pdf' %}" target="_blank">Descargar como PDF</a>
+    </table><br>
+    <div class="admin-container">
+        <div class="boton-container">
+            <a class="botoncito" href="{% url 'reporte_ventas_csv' %}" target="_blank">Descargar como Excel</a><br><br>
+            <a class="botoncito" href="{% url 'reporte_ventas_pdf' %}" target="_blank">Descargar como PDF</a>
+        </div>
+    </div>
 </body>
 </html>
 {% endblock %}

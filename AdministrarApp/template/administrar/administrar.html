@@ -12,11 +12,11 @@
     <div class="container">
         <a href="{% url 'botones' %}"><i style="font-size: 2rem;" class="bi bi-arrow-left-circle"></i></a>
         <a class="buscador-carrito">Administrar Productos</a>
+        <a href="{% url 'agregar_producto' %}"><i style="font-size: 1.3rem;" class="bi bi-plus-circle-fill"></i> Agregar</a>
     </div>
 </nav>
 <body>
     <div class="main-content">
-        <br><a class="botoncito" href="{% url 'agregar_producto' %}">Agregar Producto</a>
         <br><br>
         <table>
             <tr>
@@ -27,7 +27,7 @@
             </tr>
             {% for producto in productos %}
             <tr>
-                <td>{{ producto.producto }}</td>
+                <td style="text-transform: capitalize;">{{ producto.producto }}</td>
                 <td>{{ producto.precio }}</td>
                 <td><img style="width: 30%; border: none;color: black;" src="{{ producto.imagen.url }}"></td>
                 <td>
@@ -39,5 +39,5 @@
         </table>
         <br><br>
     </div>
-</body>
+</body><br>
 {% endblock %}
