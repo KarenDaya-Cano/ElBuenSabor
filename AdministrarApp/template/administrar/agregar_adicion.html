@@ -2,12 +2,41 @@
 {% load static %}
 {% block content %}
 <title>Agregar Adición</title>
+<style>
+    body {
+        background-image: url('{% static "C:/ElBuenSabor/ElBuenSabor/static/elbuensaborapp/image.png" %}');
+        background-size: cover;
+        background-repeat: no-repeat;}
+    .form-container {max-width: 500px;
+        margin: 50px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);}
+    .form-container input{width: 100%;
+        height:40px;
+        border: 1px solid gray;
+        border-radius: 5px;}
+    .form-container label{text-align: center;}
+    ::-webkit-file-upload-button{width: 1%;
+        color: transparent;
+        padding: 10px;
+        background: transparent;
+        border: none;}
+</style>
+<nav class="buscador">  
+    <div class="container">
+        <a href="{% url 'administrar_adiciones' %}"><i style="font-size: 2rem;" class="bi bi-arrow-left-circle"></i></a>
+    </div>
+</nav>
 <body>
-    <h1 style="text-align: center;">Agregar Adición</h1><br>
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <br><button style="margin: auto;display: flex;" type="submit">Guardar</button>
-    </form>
+    <div class="form-container">
+        <h1>Agregar una Adición</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <br><button style="margin: auto;display: flex;" type="submit">Guardar</button>
+        </form>
+    </div>
 </body>
 {% endblock %}

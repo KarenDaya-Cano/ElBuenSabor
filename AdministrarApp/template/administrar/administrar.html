@@ -32,7 +32,9 @@
                 <td><img style="width: 30%; border: none;color: black;" src="{{ producto.imagen.url }}"></td>
                 <td>
                     <a style="color: black;" href="{% url 'editar_producto' producto.pk %}"><i style="font-size: 1.5rem;" class="bi bi-pencil-square"></i></a>
-                    <a style="color: black;" href="{% url 'eliminar_producto' producto.pk %}"><i style="font-size: 1.5rem;" class="bi bi-trash3"></i></a>
+                    <a style="color: black;" href="#" onclick="confirmarEliminacion('{{ producto.pk }}')">
+                        <i style="font-size: 1.5rem;" class="bi bi-trash3"></i>
+                    </a>                    
                 </td>
             </tr>
             {% endfor %}
@@ -40,4 +42,45 @@
         <br><br>
     </div>
 </body><br>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function confirmarEliminacion(productoId) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡No podrás revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminarlo',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`/eliminar-producto/${productoId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}'  // Incluye el token CSRF
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        Swal.fire(
+                            'Eliminado!',
+                            'El producto ha sido eliminado.',
+                            'success'
+                        ).then(() => {
+                            window.location.href = '/administrar/';  // Redirige después de eliminar
+                        });
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            'Hubo un problema al eliminar el producto.',
+                            'error'
+                        );
+                    }
+                });
+            }
+        });
+    }
+</script>
+
 {% endblock %}

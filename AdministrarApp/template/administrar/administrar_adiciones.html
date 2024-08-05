@@ -29,9 +29,58 @@
             <td>{{ adicion.precio }}</td>
             <td><img style="width: 30%; border: none;color: black;" src="{{ adicion.imagen.url }}"></td>
             <td><a style="color: black;" href="{% url 'editar_adicion' adicion.pk %}"><i style="font-size: 1.5rem;" class="bi bi-pencil-square"></i></a>
-                <a style="color: black;" href="{% url 'eliminar_adicion' adicion.pk %}"><i style="font-size: 1.5rem;" class="bi bi-trash3"></i></a></td>
-        </tr>
+                <a style="color: black;" href="#" onclick="confirmarEliminacion('{{ adicion.pk }}')">
+                    <i style="font-size: 1.5rem;" class="bi bi-trash3"></i>
+                </a>
+            </tr>
         {% endfor %}
     </table>
 </body><br><br><br>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function confirmarEliminacion(adicionId) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡No podrás revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminarlo',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`/eliminar-adicion/${adicionId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}'  // Incluye el token CSRF
+                    }
+                }).then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire(
+                            'Eliminado!',
+                            'La adición ha sido eliminada.',
+                            'success'
+                        ).then(() => {
+                            location.reload();  // Recargar la página después de eliminar
+                        });
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            'Hubo un problema al eliminar la adición.',
+                            'error'
+                        );
+                    }
+                }).catch(error => {
+                    Swal.fire(
+                        'Error!',
+                        'Hubo un problema con la solicitud.',
+                        'error'
+                    );
+                });
+            }
+        });
+    }
+</script>
 {% endblock %}
