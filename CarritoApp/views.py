@@ -11,18 +11,16 @@ from .carrito import Carrito
 def qr_view(request):
     if request.method == 'POST':
         imagen = request.FILES.get('imagen')
-
-        # Aquí debes obtener los datos necesarios para la factura
-         # Debes obtener el pedido asociado al comprobante de pago
-          # Debes obtener las líneas de pedido asociadas al pedido
         nombre = request.POST.get('nombre')
         direccion = request.POST.get('direccion')
         telefono = request.POST.get('telefono')
         texto = request.POST.get('texto')
 
-        pedido = None
-        lineas_pedidos = []
+        # Obtener el pedido y las líneas de pedido
+        pedido = Pedido.objects.latest('id')  # Obtén el último pedido o el pedido correspondiente
+        lineas_pedidos = LineaPedido.objects.filter(pedido=pedido)
 
+        # Enviar el correo con el comprobante y la factura
         enviar_correo_con_comprobante(imagen, pedido, lineas_pedidos, nombre, direccion, telefono, texto)
 
         return redirect('pedido')  # Redirige a donde sea necesario después de enviar el correo
@@ -30,8 +28,8 @@ def qr_view(request):
     return render(request, 'qr.html')
 
 
-def enviar_correo_con_comprobante(imagen, pedido, lineas_pedidos, nombre, direccion, telefono, texto):
-    # Preparar el correo electrónico
+
+def enviar_correo_con_comprobante(imagen, pedido, lineas_pedidos, nombre, direccion, telefono, texto, total):
     subject = 'Comprobante de pago adjunto y factura del pedido'
     from_email = settings.EMAIL_HOST_USER
     to_email = ['web.kmx3@gmail.com']  # Dirección de correo a donde enviar
@@ -44,25 +42,24 @@ def enviar_correo_con_comprobante(imagen, pedido, lineas_pedidos, nombre, direcc
         'direccion': direccion,
         'telefono': telefono,
         'texto': texto,
+        'total': total  # Asegúrate de incluir el total aquí
     })
 
-    # Extraer el texto sin formato del contenido HTML
     text_content = strip_tags(html_content)
 
-    # Crear el objeto de mensaje de correo electrónico
     msg = EmailMultiAlternatives(subject, text_content, from_email, to_email)
     msg.attach_alternative(html_content, "text/html")
 
     # Adjuntar el comprobante de pago al correo
-    msg.attach(imagen.name, imagen.read(), imagen.content_type)
+    if imagen:
+        msg.attach(imagen.name, imagen.read(), imagen.content_type)
 
-    # Enviar el correo electrónico
     try:
         msg.send()
     except Exception as e:
-        # Manejar errores si ocurre algún problema en el envío del correo
         print(f'Error al enviar correo electrónico: {e}')
-        raise  # O maneja el error según tus requerimientos
+        raise
+
 
 
 def procesar_pedido(request):
