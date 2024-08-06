@@ -12,57 +12,59 @@
 <div class="alert" role="alert">
     <form class="menu-form" method="post" action="{% url 'procesar_pedidos' %}">
         {% csrf_token %}
-        <table>
-            <thead>
-                <tr style="text-transform: capitalize;">
-                    <th>Producto</th>
-                    <th>Precio</th>
-                    <th>Cantidad</th>
-                    <th>Imagen</th>
-                    <th>Adiciones</th>
-                    <th><div class="tooltip">
-                        <div style="text-decoration: underline;" class="icon">Descartar</div>
-                        <div style="font-size: 15px;" class="tooltiptext">Si no deseas algo del producto, indicalo aca 👇🏻</div>
-                      </div>                    
-                      </th>
-                </tr>
-            </thead>
-            <tbody>
-                {% if request.session.carrito %}
-                    {% for key, value in request.session.carrito.items %}
-                    <tr>
-                        <td style="text-transform: capitalize;">{{ value.producto }}</td>
-                        <td>{{ value.precio }}</td>
-                        <td>
-                            <a href="{% url 'sub' value.producto_id %}"><i style="font-size: 1.3rem;color:orange" class="bi bi-dash-circle-fill"></i>  </a>{{ value.cantidad }}<a href="{% url 'add' value.producto_id %}">  <i style="font-size: 1.3rem;color:orange" class="bi bi-plus-square-fill"></i></a>
-                        </td>
-                        <td><img style="max-width: 100px;" src="{{ value.imagen }}"></td>
-                        <td>
-                            <div class="tooltip">
-                                <div style="text-decoration: underline;" class="icon"><i style="color: orange;" class="bi bi-caret-down-square-fill"></i></div>
-                                <div class="tooltiptext">{% for adicion in adiciones %}                                     
-                                    <input class="checkbox-input" type="checkbox" name="adiciones_{{ key }}" value="{{ adicion.id }}"> {{ adicion.adicion }}<br>
-                                {% endfor %}</div>
-                              </div>
-                        </td>
-                        <td>
-                            <input type="text" id="texto" name="texto">
-                        </td>                 
+        <div class="compu">
+            <table>
+                <thead>
+                    <tr style="text-transform: capitalize;">
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Imagen</th>
+                        <th>Adiciones</th>
+                        <th><div class="tooltip">
+                            <div style="text-decoration: underline;" class="icon">Descartar</div>
+                            <div style="font-size: 15px;" class="tooltiptext">Si no deseas algo del producto, indicalo aca 👇🏻</div>
+                        </div>                    
+                        </th>
                     </tr>
-                    {% endfor %}
-                {% else %}
-                <tr>
-                    <td colspan="6">
-                        <div class="alert alert-danger text-center">Sin Productos</div>
-                    </td>
-                </tr>
-                {% endif %}
-                <tr>
-                    <th scope="row">Total:</th>
-                    <td colspan="5">$ {{ total_carrito }}</td>
-                </tr>
-            </tbody>
-        </table><br><br>
+                </thead>
+                <tbody>
+                    {% if request.session.carrito %}
+                        {% for key, value in request.session.carrito.items %}
+                        <tr>
+                            <td style="text-transform: capitalize;">{{ value.producto }}</td>
+                            <td>{{ value.precio }}</td>
+                            <td>
+                                <a href="{% url 'sub' value.producto_id %}"><i style="font-size: 1.3rem;color:orange" class="bi bi-dash-circle-fill"></i>  </a>{{ value.cantidad }}<a href="{% url 'add' value.producto_id %}">  <i style="font-size: 1.3rem;color:orange" class="bi bi-plus-square-fill"></i></a>
+                            </td>
+                            <td><img style="max-width: 100px;" src="{{ value.imagen }}"></td>
+                            <td>
+                                <div class="tooltip">
+                                    <div style="text-decoration: underline;" class="icon"><i style="color: orange;" class="bi bi-caret-down-square-fill"></i></div>
+                                    <div class="tooltiptext">{% for adicion in adiciones %}                                     
+                                        <input class="checkbox-input" type="checkbox" name="adiciones_{{ key }}" value="{{ adicion.id }}"> {{ adicion.adicion }}<br>
+                                    {% endfor %}</div>
+                                </div>
+                            </td>
+                            <td>
+                                <input type="text" id="texto" name="texto">
+                            </td>                 
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="6">
+                            <div class="alert alert-danger text-center">Sin Productos</div>
+                        </td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <th scope="row">Total:</th>
+                        <td colspan="5">$ {{ total_carrito }}</td>
+                    </tr>
+                </tbody>
+            </table><br><br>
+        </div>
         <div class="contacto">
         <br><h1>Informacion de contacto</h1><br>
         <input placeholder="Nombre" type="text" id="nombre" name="nombre"><br>
