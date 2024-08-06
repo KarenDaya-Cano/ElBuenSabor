@@ -49,7 +49,7 @@
                 <td>
                     {% if linea_pedido.adiciones.all %}
                         {% for adicion in linea_pedido.adiciones.all %}
-                            {{ adicion.adicion }}<p>Precio: {{ adicion.precio }}</p></li>
+                            {{ adicion.adicion }} (Precio: {{ adicion.precio }})<br>
                         {% endfor %}
                     {% else %}
                         No hay adiciones
