@@ -17,15 +17,22 @@ def qr_view(request):
         texto = request.POST.get('texto')
 
         # Obtener el pedido y las líneas de pedido
-        pedido = Pedido.objects.latest('id')  # Obtén el último pedido o el pedido correspondiente
+        pedido = Pedido.objects.latest('id')
         lineas_pedidos = LineaPedido.objects.filter(pedido=pedido)
 
-        # Enviar el correo con el comprobante y la factura
-        enviar_correo_con_comprobante(imagen, pedido, lineas_pedidos, nombre, direccion, telefono, texto)
+        if not pedido or not lineas_pedidos:
+            return redirect('error_page')  # Manejo de error si no se encuentran datos
 
-        return redirect('pedido')  # Redirige a donde sea necesario después de enviar el correo
+        total = sum(linea.sub_total() for linea in lineas_pedidos)
+
+        # Enviar el correo con el comprobante y la factura
+        enviar_correo_con_comprobante(imagen, pedido, lineas_pedidos, nombre, direccion, telefono, texto, total)
+
+        return redirect('pedido')  # Redirige a la página deseada después de enviar el correo
 
     return render(request, 'qr.html')
+
+
 
 
 
@@ -97,7 +104,7 @@ def procesar_pedido(request):
             lineas_pedidos.append(linea_pedido)
 
         # Calcula el total del pedido
-        total_pedido = sum([lp.producto.precio * lp.cantidad for lp in lineas_pedidos])
+        total_pedido = sum([lp.sub_total() for lp in lineas_pedidos])
         
         # Llama a la función para enviar el correo electrónico, asegurando que se envíe al correo deseado
         enviar_email(
@@ -109,7 +116,7 @@ def procesar_pedido(request):
             nombre=nombre,
             direccion=direccion,
             telefono=telefono,
-            texto=texto,
+            texto=texto,  # Asegúrate de incluir el texto aquí
         )
         messages.success(request, "Tu pedido ha sido enviado exitosamente.")
         
@@ -121,7 +128,6 @@ def Menu(request):
     lista_productos = Producto.objects.all()
     lista_adiciones = Adicion.objects.all()
     return render(request, 'menu.html', {'productos': lista_productos, 'adiciones': lista_adiciones})
-
 
 def pedido(request):
     lista_productos = Producto.objects.all()
