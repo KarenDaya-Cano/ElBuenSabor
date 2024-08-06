@@ -73,7 +73,7 @@
         <div class="boton-container">
         <label>Método de pago:</label><br>    
         <button type="button" id="btn-efectivo" class="pago">Efectivo</button>
-        <button type="button" class="pago" ><a href="{% url 'qr' %}">QR</a></button></div><br><br>
+        <button type="button" class="pago" ><a href="{% url 'qr' %}">QR <a class="agg" href="{% url 'procesar_pedido' %}"><i class="bi bi-cart-plus"></i> Comprar</a></a></button></div><br><br>
         <div class="boton-container">
         <button type="submit" class="agg">Comprar</button>
         <br><a class="botoncito" href="{% url 'cls' %}">Limpiar</a><br></div>
