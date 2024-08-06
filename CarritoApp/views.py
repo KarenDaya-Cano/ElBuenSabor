@@ -200,3 +200,8 @@ def enviar_email(**kwargs):
     to = kwargs.get("email_usuario", "web.kmx3@gmail.com")  # Asegura que siempre tenga un valor
 
     send_mail(asunto, mensaje_texto, from_email, [to], html_message=mensaje)
+
+def pago_exitoso(request):
+    return render(request, 'exito.html')
+def confirmacion_pago(requets):
+    return render(requets,'confirmacion.html')

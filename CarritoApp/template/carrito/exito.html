@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<body>
+    <div class="container">
+        <h1>¡Gracias por tu compra!</h1>
+        <p>Tu pago se ha realizado con éxito.</p>
+        <p>Recibirás tu pedido en breve.</p>
+        <a href="{% url 'menu' %}" class="btn">Volver al Menú</a>
+    </div>
+</body>
+{% endblock %}
