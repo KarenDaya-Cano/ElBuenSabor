@@ -123,10 +123,6 @@
     th {background-color: orange;
         color: black;
         text-align: center;}
-    @media screen and (max-width: 600px) {
-        table {
-            width: 100%;}
-        td, th {font-size: 12px;}}
 /* tabla carrito */
 /* Estilos para el formulario del menú */
     .menu-form {width: 60%;
@@ -349,7 +345,7 @@
         border-style: solid;
         border-color: transparent transparent #333 transparent;}
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 700px) {
       /* Estilos para pantallas más pequeñas */
       .boton-container {flex-direction: column;}
       .card {background: white;
@@ -360,12 +356,24 @@
         transition: transform 0.3s, box-shadow 0.3s;
         position: relative;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        scroll-snap-align: start;}
-        .movil{display: block;}
+        scroll-snap-align: start;}       
+        .contacto .movil{display: block;}
+        .compu{display: none;}
     }
-    .movil {
-        display: none;
-    }
+    .movil {display: none;
+        width: 100%;}
+    .movil .fila .columnas{display: flex;}
+    .movil .fila .columnas .th, .movil .fila .columnas .td{
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;}
+    .movil .fila .columnas .th{width: 40%;
+        background-color: orange;
+        color: black;
+        text-align: center;
+        font-weight: bold;}
+    .movil .fila .columnas .td{width: 60%;}
+    .movil .fila:nth-of-type(even) .columnas .td{background-color: #e6e6e6}
 </style>
 <body>
     <!-- Bloque para el contenido dinámico, que será reemplazado por las plantillas hijas -->
