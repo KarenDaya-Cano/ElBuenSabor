@@ -65,20 +65,51 @@
         justify-content: space-between;
         align-items: center;
         font-weight: bold;} 
-    .card{background: white;
-        border-radius: 10%;
-        border: 1px solid beige;
-        text-align: center;
-        padding: 20px;
-        border: 1px solid rgb(180, 178, 178);}
-    .carousel {display: grid; 
-        grid-auto-flow: column;
-        scroll-behavior: auto;
-        gap: 1.2rem;
-        overflow-y: auto;
-        overscroll-behavior-x: contain;
+    .main-title {text-align: center;
+        font-size: 3rem;
+        color: #d9534f;
+        margin-top: 1rem;
+        animation: fadeIn 2s ease-in-out;}
+    .sub-title {text-align: center;
+        color: #f39c12;
+        margin-bottom: 0.5rem;}
+    .sub-text {text-align: center;
+        color: #777;
+        margin-bottom: 2rem;}
+    .carousel {display: flex;
+        gap: 1.5rem;
+        overflow-x: auto;
+        padding: 1rem;
         scroll-snap-type: x mandatory;
-        scrollbar-width: none;}
+        scrollbar-width: none;
+        background: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;}
+    .carousel::-webkit-scrollbar {display: none;}
+    .card {background: white;
+        border-radius: 15px;
+        padding: 25px;
+        text-align: center;
+        min-width: 30%;
+        transition: transform 0.3s, box-shadow 0.3s;
+        position: relative;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        scroll-snap-align: start;}
+
+    .card:hover {transform: translateY(-10px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);}
+
+    .product-img {width: 300px;
+        height: 300px;
+        object-fit: cover;
+        border: 4px solid #f39c12;
+        border-radius: 10px;
+        transition: transform 0.3s, box-shadow 0.3s;}
+    .card:hover .product-img {transform: scale(1.05);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);}
+    .card-content {padding: 10px;}
+    @keyframes fadeIn {from { opacity: 0; }
+        to { opacity: 1; }}
     h1 {text-align: center;color: red;}
 /* Tablas de todos los HTML */
     table {border-collapse: collapse;
@@ -323,8 +354,16 @@
       .boton-container {
         flex-direction: column; /* Coloca los botones en columna */
       }
-    }
-
+      .card {background: white;
+        border-radius: 15px;
+        padding: 25px;
+        text-align: center;
+        min-width: 100%;
+        transition: transform 0.3s, box-shadow 0.3s;
+        position: relative;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        scroll-snap-align: start;
+    }}
 </style>
 <body>
     <!-- Bloque para el contenido dinámico, que será reemplazado por las plantillas hijas -->

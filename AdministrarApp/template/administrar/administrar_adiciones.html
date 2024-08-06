@@ -25,7 +25,7 @@
         </tr>
          {% for adicion in adiciones %}
         <tr>
-            <td>{{ adicion.adicion }}</td>
+            <td style="text-transform: capitalize;">{{ adicion.adicion }}</td>
             <td>{{ adicion.precio }}</td>
             <td><img style="width: 30%; border: none;color: black;" src="{{ adicion.imagen.url }}"></td>
             <td><a style="color: black;" href="{% url 'editar_adicion' adicion.pk %}"><i style="font-size: 1.5rem;" class="bi bi-pencil-square"></i></a>
