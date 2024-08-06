@@ -349,11 +349,9 @@
         border-style: solid;
         border-color: transparent transparent #333 transparent;}
 
-        @media screen and (max-width: 600px) {
+    @media screen and (max-width: 600px) {
       /* Estilos para pantallas más pequeñas */
-      .boton-container {
-        flex-direction: column; /* Coloca los botones en columna */
-      }
+      .boton-container {flex-direction: column;}
       .card {background: white;
         border-radius: 15px;
         padding: 25px;
@@ -362,8 +360,12 @@
         transition: transform 0.3s, box-shadow 0.3s;
         position: relative;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        scroll-snap-align: start;
-    }}
+        scroll-snap-align: start;}
+        .movil{display: block;}
+    }
+    .movil {
+        display: none;
+    }
 </style>
 <body>
     <!-- Bloque para el contenido dinámico, que será reemplazado por las plantillas hijas -->
