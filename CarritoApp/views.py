@@ -11,27 +11,32 @@ from .carrito import Carrito
 def qr_view(request):
     if request.method == 'POST':
         imagen = request.FILES.get('imagen')
-
-        # Aquí debes obtener los datos necesarios para la factura
-         # Debes obtener el pedido asociado al comprobante de pago
-          # Debes obtener las líneas de pedido asociadas al pedido
         nombre = request.POST.get('nombre')
         direccion = request.POST.get('direccion')
         telefono = request.POST.get('telefono')
         texto = request.POST.get('texto')
 
-        pedido = None
-        lineas_pedidos = []
+        # Obtener el pedido y las líneas de pedido
+        pedido = Pedido.objects.latest('id')
+        lineas_pedidos = LineaPedido.objects.filter(pedido=pedido)
 
-        enviar_correo_con_comprobante(imagen, pedido, lineas_pedidos, nombre, direccion, telefono, texto)
+        if not pedido or not lineas_pedidos:
+            return redirect('error_page')  # Manejo de error si no se encuentran datos
 
-        return redirect('pedido')  # Redirige a donde sea necesario después de enviar el correo
+        total = sum(linea.sub_total() for linea in lineas_pedidos)
+
+        # Enviar el correo con el comprobante y la factura
+        enviar_correo_con_comprobante(imagen, pedido, lineas_pedidos, nombre, direccion, telefono, texto, total)
+
+        return redirect('pedido')  # Redirige a la página deseada después de enviar el correo
 
     return render(request, 'qr.html')
 
 
-def enviar_correo_con_comprobante(imagen, pedido, lineas_pedidos, nombre, direccion, telefono, texto):
-    # Preparar el correo electrónico
+
+
+
+def enviar_correo_con_comprobante(imagen, pedido, lineas_pedidos, nombre, direccion, telefono, texto, total):
     subject = 'Comprobante de pago adjunto y factura del pedido'
     from_email = settings.EMAIL_HOST_USER
     to_email = ['web.kmx3@gmail.com']  # Dirección de correo a donde enviar
@@ -44,25 +49,24 @@ def enviar_correo_con_comprobante(imagen, pedido, lineas_pedidos, nombre, direcc
         'direccion': direccion,
         'telefono': telefono,
         'texto': texto,
+        'total': total  # Asegúrate de incluir el total aquí
     })
 
-    # Extraer el texto sin formato del contenido HTML
     text_content = strip_tags(html_content)
 
-    # Crear el objeto de mensaje de correo electrónico
     msg = EmailMultiAlternatives(subject, text_content, from_email, to_email)
     msg.attach_alternative(html_content, "text/html")
 
     # Adjuntar el comprobante de pago al correo
-    msg.attach(imagen.name, imagen.read(), imagen.content_type)
+    if imagen:
+        msg.attach(imagen.name, imagen.read(), imagen.content_type)
 
-    # Enviar el correo electrónico
     try:
         msg.send()
     except Exception as e:
-        # Manejar errores si ocurre algún problema en el envío del correo
         print(f'Error al enviar correo electrónico: {e}')
-        raise  # O maneja el error según tus requerimientos
+        raise
+
 
 
 def procesar_pedido(request):
@@ -100,7 +104,7 @@ def procesar_pedido(request):
             lineas_pedidos.append(linea_pedido)
 
         # Calcula el total del pedido
-        total_pedido = sum([lp.producto.precio * lp.cantidad for lp in lineas_pedidos])
+        total_pedido = sum([lp.sub_total() for lp in lineas_pedidos])
         
         # Llama a la función para enviar el correo electrónico, asegurando que se envíe al correo deseado
         enviar_email(
@@ -112,7 +116,7 @@ def procesar_pedido(request):
             nombre=nombre,
             direccion=direccion,
             telefono=telefono,
-            texto=texto,
+            texto=texto,  # Asegúrate de incluir el texto aquí
         )
         messages.success(request, "Tu pedido ha sido enviado exitosamente.")
         
@@ -124,7 +128,6 @@ def Menu(request):
     lista_productos = Producto.objects.all()
     lista_adiciones = Adicion.objects.all()
     return render(request, 'menu.html', {'productos': lista_productos, 'adiciones': lista_adiciones})
-
 
 def pedido(request):
     lista_productos = Producto.objects.all()

@@ -18,9 +18,17 @@
 <h1>Paga Por Nequi</h1><br><br>
 <img class="image" src="{% static 'C:\ElBuenSabor\ElBuenSabor\static\elbuensaborapp\imagen\WhatsApp Image 2024-06-28 at 9.27.08 AM.jpeg' %}" alt="Imagen estática" style="width: 300px; height: 300px;"><br>
 <p>Número: <strong>3158956593</strong></p><br><br>
-<form action="qr" method="post" enctype="multipart/form-data">
+
+<form action="{% url 'qr' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="hidden" name="nombre" value="{{ nombre }}">
+    <input type="hidden" name="direccion" value="{{ direccion }}">
+    <input type="hidden" name="telefono" value="{{ telefono }}">
+    <input type="hidden" name="texto" value="{{ texto }}">
+    
     <label for="imagen">Subir Comprobante:</label><br>
     <input type="file" id="imagen" name="imagen" accept="image/*"><br><br>
-    <input type="submit" value="Enviar Comprobante">
+    <button type="submit" class="agg">Enviar Comprobante</button>
 </form>
+
 {% endblock %}

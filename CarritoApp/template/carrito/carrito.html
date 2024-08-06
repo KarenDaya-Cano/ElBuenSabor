@@ -85,9 +85,35 @@
                     <div class="th">Producto</div>
                     <div class="td">{{ value.producto }}</div>
                 </div>
+                <div class="columnas">  
+                    <div class="th">Precio</div>
+                    <div class="td">{{ value.producto }}</div>
+                </div>
+                <div class="columnas">  
+                    <div class="th">Cantidad</div>
+                    <div class="td"><a href="{% url 'sub' value.producto_id %}"><i style="font-size: 1.3rem;color:orange" class="bi bi-dash-circle-fill"></i>  </a>{{ value.cantidad }}<a href="{% url 'add' value.producto_id %}">  <i style="font-size: 1.3rem;color:orange" class="bi bi-plus-square-fill"></i></a></div></div>
+                <div class="columnas">  
+                    <div class="th">Imagen</div>
+                    <div class="td"><img style="max-width: 100px;" src="{{ value.imagen }}"></div>
+                </div>
+                <div class="columnas">  
+                    <div class="th">Adiciones</div>
+                    <div class="td">
+                        <div class="tooltip">
+                        <div style="text-decoration: underline;" class="icon"><i style="color: orange;" class="bi bi-caret-down-square-fill"></i></div>
+                        <div class="tooltiptext">{% for adicion in adiciones %}                                     
+                            <input class="checkbox-input" type="checkbox" name="adiciones_{{ key }}" value="{{ adicion.id }}"> {{ adicion.adicion }}<br>{% endfor %}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="columnas">  
+                    <div class="th">Descartar</div>
+                    <div class="td"><input type="text" id="texto" name="texto"></div>
+                </div>
             </div>
             {% endfor %}
             {% else %}
+            {% endif %}
         </div>
     </form>
 </div><br><br>
