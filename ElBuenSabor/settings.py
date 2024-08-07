@@ -20,7 +20,8 @@ CACHES = {
     }
 }
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['1d99-190-14-231-23.ngrok-free.app', 'localhost', '127.0.0.1']
+
 
 MESSGES_STORAGE = "django.contrib.messages.storage.cookie.CooKieStorage"
 

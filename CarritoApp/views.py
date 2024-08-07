@@ -8,34 +8,6 @@ from CarritoApp.models import LineaPedido, Pedido
 from ElBuenSaborApp.models import Producto, Adicion
 from .carrito import Carrito
 
-def qr_view(request):
-    if request.method == 'POST':
-        imagen = request.FILES.get('imagen')
-        nombre = request.POST.get('nombre')
-        direccion = request.POST.get('direccion')
-        telefono = request.POST.get('telefono')
-        texto = request.POST.get('texto')
-
-        # Obtener el pedido y las líneas de pedido
-        pedido = Pedido.objects.latest('id')
-        lineas_pedidos = LineaPedido.objects.filter(pedido=pedido)
-
-        if not pedido or not lineas_pedidos:
-            return redirect('error_page')  # Manejo de error si no se encuentran datos
-
-        total = sum(linea.sub_total() for linea in lineas_pedidos)
-
-        # Enviar el correo con el comprobante y la factura
-        enviar_correo_con_comprobante(imagen, pedido, lineas_pedidos, nombre, direccion, telefono, texto, total)
-
-        return redirect('pedido')  # Redirige a la página deseada después de enviar el correo
-
-    return render(request, 'qr.html')
-
-
-
-
-
 def enviar_correo_con_comprobante(imagen, pedido, lineas_pedidos, nombre, direccion, telefono, texto, total):
     subject = 'Comprobante de pago adjunto y factura del pedido'
     from_email = settings.EMAIL_HOST_USER

@@ -2,6 +2,13 @@
 {% load static %}
 {% block content %}
 <title>Carrito</title>
+<style>
+    ::-webkit-file-upload-button{width: 1%;
+        color: transparent;
+        padding: 10px;
+        background: transparent;
+        border: none;}
+</style>
 <nav class="buscador">  
     <div class="container">
         <a href="{% url 'menu' %}"><i style="font-size: 2rem;" class="bi bi-arrow-left-circle"></i></a>
@@ -115,8 +122,10 @@
             <div class="boton-container">
                 <label>Método de pago:</label><br>    
                 <button type="button" id="btn-efectivo" class="pago">Efectivo</button>
-                <button type="button" class="pago" >Nequi</button><br><br>
-            </div>
+                <button type="button" class="pago"><a href="https://biz.payulatam.com/L0f7284F766CAC8">Nequi</a></button><br><br>
+            </div><br>
+            <p>Sube aqui el comprovante del pago</p>
+            <input type="file" id="imagen" name="imagen" accept="image/*"><br><br>
             <div class="boton-container">
                 <button type="submit" class="agg">Comprar</button><br>
                 <a class="botoncito" href="{% url 'cls' %}">Limpiar</a><br>
