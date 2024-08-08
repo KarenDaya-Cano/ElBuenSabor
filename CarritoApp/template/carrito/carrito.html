@@ -2,6 +2,13 @@
 {% load static %}
 {% block content %}
 <title>Carrito</title>
+<style>
+    ::-webkit-file-upload-button{width: 1%;
+        color: transparent;
+        padding: 10px;
+        background: transparent;
+        border: none;}
+</style>
 <nav class="buscador">  
     <div class="container">
         <a href="{% url 'menu' %}"><i style="font-size: 2rem;" class="bi bi-arrow-left-circle"></i></a>
@@ -9,9 +16,9 @@
         <i style="color: white;" class="bi bi-person-fill"></i>
     </div>
 </nav><br>
-<div class="alert" role="alert">
     <form class="menu-form" method="post" action="{% url 'procesar_pedidos' %}">
         {% csrf_token %}
+<!-- Tabla para una pantalla superior a 700px -->
         <div class="compu">
             <table>
                 <thead>
@@ -22,34 +29,33 @@
                         <th>Imagen</th>
                         <th>Adiciones</th>
                         <th><div class="tooltip">
-                            <div style="text-decoration: underline;" class="icon">Descartar</div>
-                            <div style="font-size: 15px;" class="tooltiptext">Si no deseas algo del producto, indicalo aca 👇🏻</div>
-                        </div>                    
+                                <div style="text-decoration: underline;" class="icon">Descartar</div>
+                                <div style="font-size: 15px;" class="tooltiptext">Si no deseas algo del producto, indicalo aca 👇🏻</div>
+                            </div>                    
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     {% if request.session.carrito %}
                         {% for key, value in request.session.carrito.items %}
-                        <tr>
-                            <td style="text-transform: capitalize;">{{ value.producto }}</td>
-                            <td>{{ value.precio }}</td>
-                            <td>
-                                <a href="{% url 'sub' value.producto_id %}"><i style="font-size: 1.3rem;color:orange" class="bi bi-dash-circle-fill"></i>  </a>{{ value.cantidad }}<a href="{% url 'add' value.producto_id %}">  <i style="font-size: 1.3rem;color:orange" class="bi bi-plus-square-fill"></i></a>
-                            </td>
-                            <td><img style="max-width: 100px;" src="{{ value.imagen }}"></td>
-                            <td>
-                                <div class="tooltip">
-                                    <div style="text-decoration: underline;" class="icon"><i style="color: orange;" class="bi bi-caret-down-square-fill"></i></div>
-                                    <div class="tooltiptext">{% for adicion in adiciones %}                                     
-                                        <input class="checkbox-input" type="checkbox" name="adiciones_{{ key }}" value="{{ adicion.id }}"> {{ adicion.adicion }}<br>
-                                    {% endfor %}</div>
-                                </div>
-                            </td>
-                            <td>
-                                <input type="text" id="texto" name="texto">
-                            </td>                 
-                        </tr>
+                            <tr>
+                                <td style="text-transform: capitalize;">{{ value.producto }}</td>
+                                <td>{{ value.precio }}</td>
+                                <td>
+                                    <a href="{% url 'sub' value.producto_id %}"><i style="font-size: 1.3rem;color:orange" class="bi bi-dash-circle-fill"></i></a>{{ value.cantidad }}
+                                    <a href="{% url 'add' value.producto_id %}">  <i style="font-size: 1.3rem;color:orange" class="bi bi-plus-square-fill"></i></a>
+                                </td>
+                                <td><img style="max-width: 100px;" src="{{ value.imagen }}"></td>
+                                <td>
+                                    <div class="tooltip">
+                                        <div style="text-decoration: underline;" class="icon"><i style="color: orange;" class="bi bi-caret-down-square-fill"></i></div>
+                                        <div class="tooltiptext">{% for adicion in adiciones %}                                     
+                                            <input class="checkbox-input" type="checkbox" name="adiciones_{{ key }}" value="{{ adicion.id }}"> {{ adicion.adicion }}<br>{% endfor %}
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><input type="text" id="texto" name="texto"></td>                 
+                            </tr>
                         {% endfor %}
                     {% else %}
                     <tr>
@@ -65,60 +71,67 @@
                 </tbody>
             </table><br><br>
         </div>
-        <div class="contacto">
-        <br><h1>Informacion de contacto</h1><br>
-        <input placeholder="Nombre" type="text" id="nombre" name="nombre"><br>
-
-        <input placeholder="Direccion" type="text" id="direccion" name="direccion"><br>
-
-        <input placeholder="Telefono" type="tel" id="telefono" name="telefono"><br>
-        <div class="boton-container">
-        <label>Método de pago:</label><br>    
-        <button type="button" id="btn-efectivo" class="pago">Efectivo</button>
-        <button type="button" class="pago" ><a href="{% url 'qr' %}">QR <a class="agg" href="{% url 'procesar_pedido' %}"><i class="bi bi-cart-plus"></i> Comprar</a></a></button></div><br><br>
-        <div class="boton-container">
-        <button type="submit" class="agg">Comprar</button>
-        <br><a class="botoncito" href="{% url 'cls' %}">Limpiar</a><br></div>
+<!-- Tabla para una pan talla inferior a 700px -->
         <div class="movil">
             {% if request.session.carrito %}
-            {% for key, value in request.session.carrito.items %}
-            <div class="fila">
-                <div class="columnas">  
-                    <div class="th">Producto</div>
-                    <div class="td">{{ value.producto }}</div>
-                </div>
-                <div class="columnas">  
-                    <div class="th">Precio</div>
-                    <div class="td">{{ value.producto }}</div>
-                </div>
-                <div class="columnas">  
-                    <div class="th">Cantidad</div>
-                    <div class="td"><a href="{% url 'sub' value.producto_id %}"><i style="font-size: 1.3rem;color:orange" class="bi bi-dash-circle-fill"></i>  </a>{{ value.cantidad }}<a href="{% url 'add' value.producto_id %}">  <i style="font-size: 1.3rem;color:orange" class="bi bi-plus-square-fill"></i></a></div></div>
-                <div class="columnas">  
-                    <div class="th">Imagen</div>
-                    <div class="td"><img style="max-width: 100px;" src="{{ value.imagen }}"></div>
-                </div>
-                <div class="columnas">  
-                    <div class="th">Adiciones</div>
-                    <div class="td">
-                        <div class="tooltip">
-                        <div style="text-decoration: underline;" class="icon"><i style="color: orange;" class="bi bi-caret-down-square-fill"></i></div>
-                        <div class="tooltiptext">{% for adicion in adiciones %}                                     
-                            <input class="checkbox-input" type="checkbox" name="adiciones_{{ key }}" value="{{ adicion.id }}"> {{ adicion.adicion }}<br>{% endfor %}</div>
+                {% for key, value in request.session.carrito.items %}
+                    <div class="fila">
+                        <div class="columnas">  
+                            <div class="th">Producto</div>
+                            <div class="td">{{ value.producto }}</div>
+                        </div>
+                        <div class="columnas">  
+                            <div class="th">Precio</div>
+                            <div class="td">$ {{ value.precio }}</div>
+                        </div>
+                        <div class="columnas">  
+                            <div class="th">Cantidad</div>
+                            <div class="td"><a href="{% url 'sub' value.producto_id %}"><i style="font-size: 1.3rem;color:orange" class="bi bi-dash-circle-fill"></i>  </a>{{ value.cantidad }}<a href="{% url 'add' value.producto_id %}">  <i style="font-size: 1.3rem;color:orange" class="bi bi-plus-square-fill"></i></a></div></div>
+                        <div class="columnas">  
+                            <div class="th">Imagen</div>
+                            <div class="td"><img style="max-width: 100px;" src="{{ value.imagen }}"></div>
+                        </div>
+                        <div class="columnas">  
+                            <div class="th">Adiciones</div>
+                            <div class="td">
+                                <div class="tooltip">
+                                <div style="text-decoration: underline;" class="icon"><i style="color: orange;" class="bi bi-caret-down-square-fill"></i></div>
+                                <div class="tooltiptext">{% for adicion in adiciones %}                                     
+                                    <input class="checkbox-input" type="checkbox" name="adiciones_{{ key }}" value="{{ adicion.id }}"> {{ adicion.adicion }}<br>{% endfor %}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="columnas">  
+                            <div class="th">Descartar</div>
+                            <div class="td"><input type="text" id="texto" name="texto"></div>
+                        </div>
+                        <div class="columnas">  
+                            <div class="th">Total</div>
+                            <div class="td">$ {{ total_carrito }}</div>
                         </div>
                     </div>
-                </div>
-                <div class="columnas">  
-                    <div class="th">Descartar</div>
-                    <div class="td"><input type="text" id="texto" name="texto"></div>
-                </div>
-            </div>
-            {% endfor %}
-            {% else %}
+                {% endfor %}
             {% endif %}
         </div>
-    </form>
-</div><br><br>
+<!-- Informacion para el domicilio -->
+        <div class="contacto"><br>
+            <h1>Informacion de contacto</h1><br>
+            <input placeholder="Nombre" type="text" id="nombre" name="nombre"><br>
+            <input placeholder="Indicar la direccion o si recoge" type="text" id="direccion" name="direccion"><br>
+            <input placeholder="Telefono" type="tel" id="telefono" name="telefono"><br>
+            <div class="boton-container">
+                <label>Método de pago:</label><br>    
+                <button type="button" id="btn-efectivo" class="pago">Efectivo</button>
+                <button type="button" class="pago"><a href="https://biz.payulatam.com/L0f7284F766CAC8">Nequi</a></button><br><br>
+            </div><br>
+            <p>Sube aqui el comprovante del pago</p>
+            <input type="file" id="imagen" name="imagen" accept="image/*"><br><br>
+            <div class="boton-container">
+                <button type="submit" class="agg">Comprar</button><br>
+                <a class="botoncito" href="{% url 'cls' %}">Limpiar</a><br>
+            </div>
+        </div>
+    </form><br><br>
 <script>
     document.getElementById('btn-efectivo').addEventListener('click', function() {
         Swal.fire({
