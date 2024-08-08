@@ -16,7 +16,7 @@
         <i style="color: white;" class="bi bi-person-fill"></i>
     </div>
 </nav><br>
-    <form class="menu-form" method="post" action="{% url 'procesar_pedidos' %}">
+    <form class="menu-form" method="post" action="{% url 'procesar_pedidos' %}" enctype="multipart/form-data">
         {% csrf_token %}
 <!-- Tabla para una pantalla superior a 700px -->
         <div class="compu">
@@ -124,7 +124,7 @@
                 <button type="button" id="btn-efectivo" class="pago">Efectivo</button>
                 <button type="button" class="pago"><a href="https://biz.payulatam.com/L0f7284F766CAC8">Nequi</a></button><br><br>
             </div><br>
-            <p>Sube aqui el comprovante del pago</p>
+            <p>Sube aqui el comprobante del pago</p>
             <input type="file" id="imagen" name="imagen" accept="image/*"><br><br>
             <div class="boton-container">
                 <button type="submit" class="agg">Comprar</button><br>

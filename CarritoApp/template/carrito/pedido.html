@@ -49,12 +49,17 @@
                 <td>{{ linea_pedido.precio_unitario }}</td>
                 <td>{{ linea_pedido.sub_total }}</td> 
                 <td>{{ texto }}</td>
+                <td>
+                    {% if imagen %}
+                        <img src="{{ imagen }}" alt="Comprobante de pago" style="max-width: 200px;">
+                    {% endif %}
+                </td>
             {% endfor %}
         </tbody>
-        <td>Total: {{ total }}</td>
-        <!-- {% if request.session.carrito.items %}
-        <a class="agg" href="{% url 'procesar_pedido' %}"><i class="bi bi-cart-plus"></i> Comprar</a>
-        {% endif %} -->
+        <tr>
+            <th>Total</th>
+            <td>{{ total }}</td>
+        </tr>
     </table>
 </body>
 </html>
