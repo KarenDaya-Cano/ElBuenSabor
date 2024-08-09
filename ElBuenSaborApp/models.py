@@ -4,7 +4,7 @@ class Producto(models.Model):
     producto = models.CharField(max_length=50)
     precio = models.IntegerField()
     descripcion = models.CharField(max_length=100)
-    imagen = models.ImageField()
+    imagen = models.ImageField(upload_to='productos/')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -18,7 +18,7 @@ class Producto(models.Model):
 class Adicion(models.Model):
     adicion = models.CharField(max_length=50)
     precio = models.IntegerField()
-    imagen = models.ImageField()
+    imagen = models.ImageField(upload_to='adiciones/')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     
