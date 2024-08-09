@@ -21,7 +21,7 @@
                     <h3 style="text-transform: capitalize;">{{ producto.producto }}</h3><br>
                     <h5>${{ producto.precio }}</h5><br>
                     <div class="tooltip">
-                        <div class="icon">Descripción</div>
+                        <div style="text-decoration: underline;" class="icon">Descripción</div>
                         <div class="tooltiptext">{{ producto.descripcion }}</div>
                     </div><br><br>
                     <a class="boton_menu" href="{% url 'add' producto.id %}">
