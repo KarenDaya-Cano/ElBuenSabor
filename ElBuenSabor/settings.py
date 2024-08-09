@@ -30,7 +30,7 @@ MESSGES_STORAGE = "django.contrib.messages.storage.cookie.CooKieStorage"
 
 MESSGES_STORAGE = "django.contrib.messages.storage.cookie.CooKieStorage"
 
-STATICFILES_DIRS= ['C:/ElBuenSabor/ElBuenSabor/static/elbuensaborapp']
+STATICFILES_DIRS= ['C:\ElBuenSabor\ElBuenSabor\static']
 
 # Application definition
 
@@ -130,7 +130,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 MEDIA_URL='/imagen/'
-MEDIA_ROOT='C:/ElBuenSabor/ElBuenSabor/static/elbuensaborapp/imagen/'
+MEDIA_ROOT='C:\ElBuenSabor\ElBuenSabor\static\elbuensaborapp'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 CRISPY_ALLOWED_TEMPLATE_PACK = 'bootstrap5'
