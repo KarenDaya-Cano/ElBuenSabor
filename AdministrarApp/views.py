@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from ElBuenSaborApp.models import Producto, Adicion
 from .forms import ProductoForm, AdicionForm
 from django.contrib.auth.forms import AuthenticationForm 
@@ -76,7 +76,7 @@ def agregar_producto(request):
         form = ProductoForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('admin')
+            return redirect('administrar_producto')
     else:
         form = ProductoForm()
     return render(request, 'agregar_producto.html', {'form': form})
@@ -88,18 +88,16 @@ def editar_producto(request, pk):
         form = ProductoForm(request.POST, request.FILES, instance=producto)
         if form.is_valid():
             form.save()
-            return redirect('admin')
+            return redirect('administrar_producto')
     else:
         form = ProductoForm(instance=producto)
     return render(request, 'editar_producto.html', {'form': form})
 
 @login_required
 def eliminar_producto(request, pk):
-    producto = Producto.objects.get(pk=pk)
-    if request.method == 'POST':
-        producto.delete()
-        return redirect('admin')
-    return render(request, 'eliminar_producto.html', {'producto': producto})
+    producto = get_object_or_404(Producto, pk=pk)
+    producto.delete()
+    return redirect('administrar_producto')
 
 @login_required
 def agregar_adicion(request):
@@ -126,11 +124,11 @@ def editar_adicion(request, pk):
 
 @login_required
 def eliminar_adicion(request, pk):
-    adicion = Adicion.objects.get(pk=pk)
     if request.method == 'POST':
+        adicion = Adicion.objects.get(pk=pk)
         adicion.delete()
-        return redirect('administrar_adiciones')  
-    return render(request, 'eliminar_adicion.html', {'adicion': adicion})
+        return JsonResponse({'success': True})
+    return JsonResponse({'success': False}, status=400)
 
 @login_required
 def dashboard(request):

@@ -12,6 +12,7 @@ SECRET_KEY = 'django-insecure-m=h@gk6wk$^4-qje5#0po*l7d)skgyedlqxm266wt$y2*o3mry
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 #DEBUG = False # 27/06 modifique para mensajes de error
 
 CACHES = {
@@ -20,7 +21,8 @@ CACHES = {
     }
 }
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['9f90-2800-b70-21-282f-e49e-6e44-40e4-d659.ngrok-free.app', 'localhost', '127.0.0.1']
+
 
 MESSGES_STORAGE = "django.contrib.messages.storage.cookie.CooKieStorage"
 
@@ -28,7 +30,7 @@ MESSGES_STORAGE = "django.contrib.messages.storage.cookie.CooKieStorage"
 
 MESSGES_STORAGE = "django.contrib.messages.storage.cookie.CooKieStorage"
 
-STATICFILES_DIRS= ['C:/ElBuenSabor/ElBuenSabor/static/elbuensaborapp']
+STATICFILES_DIRS= ['C:\ElBuenSabor\ElBuenSabor\static']
 
 # Application definition
 
@@ -128,7 +130,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 MEDIA_URL='/imagen/'
-MEDIA_ROOT='C:/ElBuenSabor/ElBuenSabor/static/elbuensaborapp/imagen/'
+MEDIA_ROOT='C:\ElBuenSabor\ElBuenSabor\static\elbuensaborapp'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 CRISPY_ALLOWED_TEMPLATE_PACK = 'bootstrap5'

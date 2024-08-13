@@ -4,27 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Factura de Pedido</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-    </style>
+<style>
+    table {width: 100%;
+        border-collapse: collapse;}
+    th, td {border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;}
+    th {background-color: #f2f2f2;}
+    tr:nth-child(even) {background-color: #f2f2f2;}
+</style>
 </head>
 <body>
-    <h2>Factura de Pedido</h2><br>
-    
+    <h2>Factura de Pedido</h2><br>   
     <p>Información del Usuario:</p>
     <p>Nombre: {{ nombre }}</p>
     <p>Dirección: {{ direccion }}</p>
@@ -49,7 +40,7 @@
                 <td>
                     {% if linea_pedido.adiciones.all %}
                         {% for adicion in linea_pedido.adiciones.all %}
-                            {{ adicion.adicion }}<p>Precio: {{ adicion.precio }}</p></li>
+                            {{ adicion.adicion }} (Precio: {{ adicion.precio }})<br>
                         {% endfor %}
                     {% else %}
                         No hay adiciones
@@ -58,12 +49,17 @@
                 <td>{{ linea_pedido.precio_unitario }}</td>
                 <td>{{ linea_pedido.sub_total }}</td> 
                 <td>{{ texto }}</td>
+                <td>
+                    {% if imagen %}
+                        <img src="{{ imagen }}" alt="Comprobante de pago" style="max-width: 200px;">
+                    {% endif %}
+                </td>
             {% endfor %}
         </tbody>
+        <tr>
+            <th>Total</th>
+            <td>{{ total }}</td>
+        </tr>
     </table>
-    <td>Total: {{ total }}</td>
-    {% if request.session.carrito.items %}
-    <a class="agg" href="{% url 'procesar_pedido' %}"><i class="bi bi-cart-plus"></i> Comprar</a>
-    {% endif %}
 </body>
 </html>

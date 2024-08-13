@@ -1,49 +1,47 @@
 {% extends 'base.html' %}
-{% load static%}
+{% load static %}
 {% block content %}
 <title>Menu</title>
 <nav class="buscador">  
     <div class="container">
-        <a href="{% url 'inicio' %}"><i style="font-size: 2rem;" class="bi bi-arrow-left-circle"></i></a>
+        <a href="{% url 'inicio' %}" class="icon-btn"><i class="bi bi-arrow-left-circle"></i></a>
         <a class="buscador-carrito" href="#">MENÚ</a>
-        <a href="{% url 'pedido' %}"><i style="font-size: 2rem;" class="bi bi-cart4"></i></a>
+        <a href="{% url 'pedido' %}" class="icon-btn"><i class="bi bi-cart4"></i></a>
     </div>
 </nav>
 <main>
-    <br><h1 style="text-align: center; font-size: 30px;">EL BUEN SABOR</h1>
-    <br><h2 style="padding-left: 50px;">Productos</h2>
-    <h4 style="padding-left: 50px;">Seleccione el producto que desea comprar y agregelo al carrito de compras</h4>
-    <br>
-    <div style="margin-left: 40px; margin-right: 40px;" class="carousel">
-        <div class="carousel">
-            {% for producto in productos %}
-                <article class="card">
-                    <img style="border: none;" id="imagen" src="{{ producto.imagen.url }}" height="250" width="250"><br>
-                    <br><h3 style="text-transform: capitalize;">{{ producto.producto}}</h3>
-                    <br><h5>{{ producto.precio }}</h5><br>
-                    <h5><div class="tooltip">
+    <h1 class="main-title">EL BUEN SABOR</h1>
+    <h2 class="sub-title">Productos</h2>
+    <h4 class="sub-text">Seleccione el producto que desea comprar y agréguelo al carrito de compras</h4>
+    <div class="carousel">
+        {% for producto in productos %}
+            <article class="card">
+                <img src="{{ producto.imagen.url }}" alt="{{ producto.producto }}" class="product-img">
+                <div class="card-content">
+                    <h3 style="text-transform: capitalize;">{{ producto.producto }}</h3><br>
+                    <h5>${{ producto.precio }}</h5><br>
+                    <div class="tooltip">
                         <div style="text-decoration: underline;" class="icon">Descripción</div>
-                        <div class="tooltiptext">{{producto.descripcion}}</div>
-                      </div>
-                      </h5><br><br>
-                    <a class="boton_menu" href="{% url 'add' producto.id %}"><i style="font-size: 1.3rem;" class="bi bi-plus-circle-fill"></i> Agregar al carrito</a>
-                </article>
-            {% endfor %}
-        </div>
-    </div>
-</main><br><br><br>   
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    {% if messages %}
-        {% for mensaje in messages %}
-        <script>
-            Swal.fire({
-            "title": "Realizado",
-            "text": "{{ mensaje }}",
-            "icon": "success"
-            });
-        </script>
+                        <div class="tooltiptext">{{ producto.descripcion }}</div>
+                    </div><br><br>
+                    <a class="boton_menu" href="{% url 'add' producto.id %}">
+                        <i class="bi bi-plus-circle-fill"></i> Agregar al carrito
+                    </a>
+                </div>
+            </article>
         {% endfor %}
-    {% endif %} 
-
+    </div>
+</main><br><br><br>
+{% if messages %}
+    {% for mensaje in messages %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire({
+            title: "Realizado",
+            text: "{{ mensaje }}",
+            icon: "success"
+        });
+    </script>
+    {% endfor %}
+{% endif %}
 {% endblock %}
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

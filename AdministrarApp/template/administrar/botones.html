@@ -5,7 +5,7 @@
 {% if user.is_authenticated %}
 <style>
     body {
-        background-image: url('{% static "C:/ElBuenSabor/ElBuenSabor/static/elbuensaborapp/hamburger.jpg" %}');
+        background-image: url('{% static "elbuensaborapp" %}/imagen/proyecto/hamburger.jpg');
         background-size: cover;
         background-repeat: no-repeat;}
 </style>
@@ -20,7 +20,7 @@
     <br>
     <div class="admin-container">
         <div class="boton-container">
-            <button class="botoncito"><a  href="{% url 'admin' %}">Productos</a></button>
+            <button class="botoncito"><a  href="{% url 'administrar_producto' %}">Productos</a></button>
             <button class="botoncito"><a  href="{% url 'administrar_adiciones' %}">Adiciones</a></button>
             <button class="botoncito"><a href="{% url 'dashboard' %}"> Dashboard</a></button>
             <button class="botoncito"><a href="{% url 'reporte_ventas' %}"> Reporte de ventas</a></button>
@@ -34,32 +34,68 @@
     </div>
 </body><br><br>
 {% endif %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
     function startService() {
         fetch("{% url 'start_service' %}")
           .then(response => response.json())
           .then(data => {
               if (data.success) {
-                  alert("El servicio ha sido iniciado.");
+                  Swal.fire({
+                      icon: 'success',
+                      title: '¡Éxito!',
+                      text: 'El servicio ha sido iniciado.',
+                      confirmButtonText: 'Aceptar'
+                  });
               } else {
-                  alert("No se pudo iniciar el servicio.");
+                  Swal.fire({
+                      icon: 'error',
+                      title: '¡Error!',
+                      text: 'No se pudo iniciar el servicio.',
+                      confirmButtonText: 'Aceptar'
+                  });
               }
+          })
+          .catch(error => {
+              Swal.fire({
+                  icon: 'error',
+                  title: '¡Error!',
+                  text: 'Hubo un problema al conectar con el servidor.',
+                  confirmButtonText: 'Aceptar'
+              });
           });
     }
-  
+
     function stopService() {
         fetch("{% url 'stop_service' %}")
           .then(response => response.json())
           .then(data => {
               if (data.success) {
-                  alert("El servicio ha sido detenido.");
+                  Swal.fire({
+                      icon: 'success',
+                      title: '¡Éxito!',
+                      text: 'El servicio ha sido detenido.',
+                      confirmButtonText: 'Aceptar'
+                  });
               } else {
-                  alert("No se pudo detener el servicio.");
+                  Swal.fire({
+                      icon: 'error',
+                      title: '¡Error!',
+                      text: 'No se pudo detener el servicio.',
+                      confirmButtonText: 'Aceptar'
+                  });
               }
+          })
+          .catch(error => {
+              Swal.fire({
+                  icon: 'error',
+                  title: '¡Error!',
+                  text: 'Hubo un problema al conectar con el servidor.',
+                  confirmButtonText: 'Aceptar'
+              });
           });
     }
-
-                
 </script>
 
 {% endblock %}
