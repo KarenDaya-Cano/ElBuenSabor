@@ -6,7 +6,7 @@ class Carrito:
 
     def agregar(self, producto):
         id = str(producto.id)
-        if id not in self.carrito.keys():
+        if id not in self.carrito: # quite el key()
             self.carrito[id] = {
                 "producto_id": producto.id,
                 "producto": producto.producto,
@@ -17,7 +17,7 @@ class Carrito:
             }
         else:
             self.carrito[id]["cantidad"] += 1
-            self.carrito[id]["precio"] += producto.precio  # Sumar el precio del producto
+            self.carrito[id]["precio"] += producto.precio
         self.guardar_carrito()
 
     def guardar_carrito(self):
@@ -31,7 +31,7 @@ class Carrito:
 
     def restar(self, producto):
         producto_id = str(producto.id)
-        if producto_id in self.carrito.keys():
+        if producto_id in self.carrito: #quite el .keys()
             self.carrito[producto_id]["cantidad"] -= 1
             self.carrito[producto_id]["precio"] -= producto.precio  # Restar el precio del producto
             if self.carrito[producto_id]["cantidad"] <= 0:
