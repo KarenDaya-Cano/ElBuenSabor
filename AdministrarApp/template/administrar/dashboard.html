@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block content %}
 <title>Dashboard - Administrar Productos y Adiciones</title>
 <style>
@@ -8,6 +7,13 @@
         background-image: url('{% static "elbuensaborapp" %}/imagen/proyecto/image.png');
         background-size: cover;
         background-repeat: no-repeat;}
+    .admin-container {padding: 20px;
+        border-radius: 10px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);}
+    h2 {text-align: center;
+        margin: auto;
+        font-size: xx-large ;}
 </style>
 <nav class="buscador">  
     <div class="container">
@@ -35,59 +41,4 @@
     </div>
     {% endif %}
 </body>
-
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f8f9fa;
-        color: #333333;
-        font-size: 18px;
-    }
-    h2 {
-        text-align: center;
-        margin: auto;
-        font-size: xx-large ;
-    }
-    .admin-container {
-        text-align: center;
-        padding: 20px;
-        border-radius: 10px;
-        background-color: #ffffff;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    .summary {
-        display: flex;
-        justify-content: space-around;
-        margin-top: 20px;
-    }
-    .summary-box {
-        background: linear-gradient(red, orange);;
-        color: white;
-        border-radius: 10px;
-        padding: 30px;
-        width: 200px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-        transition: transform 0.2s;
-    }
-    .summary-box:hover {
-        transform: scale(1.05);
-    }
-    .texto_edi {
-        font-size: 1.5rem;
-        color: #0a0b0b;
-    }
-    .buscador {
-        background-color: #f8350e;
-        padding: 10px;
-        color: white;
-    }
-    .buscador a {
-        color: white;
-        text-decoration: none;
-        margin-right: 15px;
-    }
-    .buscador a:hover {
-        text-decoration: underline;
-    }
-</style>
 {% endblock %}
