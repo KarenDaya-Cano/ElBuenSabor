@@ -12,7 +12,7 @@
 </div>
 <div class="inicio">
     <h1>¿QUE SE TE ANTOJA HOY?</h1>
-    <button id="menu-button" class="boton_menu"><a href="{% url 'menu' %}">MENÚ</a></button>
+    <button id="menu-button" class="boton_menu"><a id="menu-btn" href="{% url 'menu' %}">MENÚ</a></button>
 </div>
 <img style="margin: auto;display: flex; border: none; width: 60%;" src="{% static 'C:\ElBuenSabor\ElBuenSabor\static\elbuensaborapp\logo.png' %}">
 <br><br>
@@ -31,9 +31,35 @@
             }
         });
   }
-
   window.onload = checkServiceStatus;
   setInterval(checkServiceStatus, 60000);
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.getElementById('menu-btn').addEventListener('click', function(event) {
+        event.preventDefault(); // Evita la acción por defecto del enlace
+
+        Swal.fire({
+            title: 'Vaciar el carrito',
+            text: "Debes vaciar el carrito antes de ir al menú",
+            icon: 'warning',
+            showCancelButton: false,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, vaciar',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch('/limpiar/')
+                    .then(response => {
+                        if (response.redirected) {
+                            window.location.href = '/menu/';
+                        }
+                    });
+            }
+        });
+    });
+</script>
+
+
 {% endblock %}
 

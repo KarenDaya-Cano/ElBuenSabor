@@ -1,16 +1,21 @@
-import email
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from django.core.mail import send_mail, EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives
 from django.utils.html import strip_tags
 from django.template.loader import render_to_string
-from django.conf import settings
-import requests
 from CarritoApp.models import LineaPedido, Pedido
 from ElBuenSaborApp.models import Producto, Adicion
 from .carrito import Carrito
-from django.core.files.storage import default_storage
-from django.core.files.base import ContentFile
+from django.core.mail import EmailMultiAlternatives
+from django.http import JsonResponse
+from django.core.cache import cache
+
+def check_service_status(request):
+    status = cache.get('service_status', 'active')
+    return JsonResponse({'status': status})
+
+def Inicio(request):
+    return render(request, 'inicio.html', {})
 
 def Menu(request):
     lista_productos = Producto.objects.all()
@@ -53,9 +58,6 @@ def limpiar_carrito(request):
     carrito.limpiar()
     messages.info(request, 'El carrito se ha vaciado.')
     return redirect('menu')
-from django.core.files.storage import default_storage
-from django.core.files.base import ContentFile
-from django.core.mail import EmailMultiAlternatives
 
 def procesar_pedido(request):
     if request.method == 'POST':
@@ -133,7 +135,5 @@ def enviar_email(**kwargs):
     email.attach_alternative(mensaje_html, "text/html")
 
     if imagen_file:
-        # Adjunta el archivo de imagen al correo
         email.attach(imagen_file.name, imagen_file.read(), imagen_file.content_type)
-
     email.send()
